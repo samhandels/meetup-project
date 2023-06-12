@@ -1,14 +1,15 @@
 const express = require('express');
+const router = express.Router();
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
+
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-const router = express.Router();
 
 const validateLogin = [
     check('credential')
@@ -30,9 +31,9 @@ router.post('/', validateLogin, async (req, res, next) => {
         where: {
           [Op.or]: {
             username: credential,
-            email: credential
-          }
-        }
+            email: credential,
+          },
+        },
       });
 
       if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
@@ -53,7 +54,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
       await setTokenCookie(res, safeUser);
 
-      return res.json({
+      return res.status(200).json({
         user: safeUser
       });
     }
