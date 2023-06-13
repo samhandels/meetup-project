@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Event.belongsToMany(models.User, {
         through: models.Attendance,
         foreignKey: "eventId",
+        onDelete: "CASCADE",
         otherKey: "userId",
       });
       Event.belongsTo(models.Venue, {
@@ -31,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onDelete: "Cascade",
+      onDelete: "CASCADE",
     },
     name: {
       type: DataTypes.STRING,
