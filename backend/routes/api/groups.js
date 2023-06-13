@@ -71,4 +71,44 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.status(200).json({Groups: groups})
 })
 
+
+// Get details of a group from an id
+router.get('/:groupId', async (req, res) => {
+    const { groupId } = req.params;
+    const group = await Group.findByPk(groupId, {
+        include: [
+            {
+                model: GroupImage,
+                attributes: {
+                    exclude: ['groupId', 'createdAt', 'updatedAt']
+                }
+            },
+            {
+                model: User,
+                as: "Organizer",
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: Venue
+            }
+        ]
+    })
+    // Checks if the group exists
+    if (!group) {
+        return res.status(404).json({
+            message: "Group couldn't be found"
+        })
+    }
+
+    // Calculates aggregate data
+    const members = await group.countUsers();
+    group.dataValues.numMembers = members;
+
+    return res.status(200).json(group)
+})
+
+
+//create a group
+
+
   module.exports = router;
