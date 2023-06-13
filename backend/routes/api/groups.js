@@ -109,15 +109,80 @@ router.get('/:groupId', async (req, res) => {
 
 
 //create a group
-const validateCreateGroup = [
-    check('name').exists({checkFalsy: true}).isLength({max: 60, min: 5}).withMessage('Name must be 60 characters or less'),
-    check('about').exists({checkFalsy: true}).isLength({min: 50}).withMessage('About must be 50 characters or more'),
-    check('type').exists({checkFalsy: true}).isIn(['In person', 'Online']).withMessage("Type must be 'Online' or 'In person'"),
-    check('private').exists().isBoolean().withMessage('Private must be a boolean'),
-    check('city').exists({checkFalsy: true}).withMessage('City is required'),
-    check('state').exists({checkFalsy: true}).isAlpha().isLength({min: 2, max: 2}).withMessage('State is required'),
-    handleValidationErrors
-]
+const validateCreateGroup = (req, res, next) => {
+    const { name, about, type, private, city, state } = req.body;
+    const errors = [];
+
+    if (!name) {
+      errors.push({
+        field: 'name',
+        message: 'Name is required',
+      });
+    } else if (name.length > 60 || name.length < 5) {
+      errors.push({
+        field: 'name',
+        message: 'Name must be 60 characters or less',
+      });
+    }
+
+    if (!about) {
+      errors.push({
+        field: 'about',
+        message: 'About is required',
+      });
+    } else if (about.length < 50) {
+      errors.push({
+        field: 'about',
+        message: 'About must be 50 characters or more',
+      });
+    }
+
+    if (!type) {
+      errors.push({
+        field: 'type',
+        message: 'Type is required',
+      });
+    } else if (!['In person', 'Online'].includes(type)) {
+      errors.push({
+        field: 'type',
+        message: "Type must be 'Online' or 'In person'",
+      });
+    }
+
+    if (!private) {
+      errors.push({
+        field: 'private',
+        message: 'Private must be a boolean',
+      });
+    }
+
+    if (!city) {
+      errors.push({
+        field: 'city',
+        message: 'City is required',
+      });
+    }
+
+    if (!state) {
+      errors.push({
+        field: 'state',
+        message: 'State is required',
+      });
+    } else if (state.length !== 2 || !state.match(/^[A-Z]+$/)) {
+      errors.push({
+        field: 'state',
+        message: 'State must be 2 characters and all caps',
+      });
+    }
+
+    if (errors.length) {
+      res.status(400).json({ errors });
+      return;
+    }
+
+    // Continue with the rest of the request
+    next();
+  };
 
 router.post('/', validateCreateGroup, async (req, res) => {
     const { organizerId, name, about, type, private, city, state } = req.body;
@@ -291,6 +356,6 @@ router.delete("/:groupId", requireAuth, async (req, res) => {
 
 
   //get all venues for a group by ID
-  
+
 
   module.exports = router;
