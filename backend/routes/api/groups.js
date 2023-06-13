@@ -356,6 +356,45 @@ router.delete("/:groupId", requireAuth, async (req, res) => {
 
 
   //get all venues for a group by ID
+  router.get("/:groupId/venues", requireAuth, async (req, res) => {
+    const { groupId } = req.params;
+    const group = await Group.findByPk(groupId, {
+      include: {
+        model: Venue,
+        attributes: {
+          exclude: ["updatedAt", "createdAt"],
+        },
+      },
+    });
 
+    if (!group) {
+      return res.status(404).json({ message: "Group couldn't be found" });
+    }
+
+    const isOrganizer = group.organizerId === req.user.id;
+    const isMember = await Membership.findOne({
+      where: {
+        groupId,
+        userId: req.user.id,
+        status: "co-host",
+      },
+    });
+
+    if (!isOrganizer && !isMember) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    const venues = group.Venues;
+
+    if (venues.length === 0) {
+      return res.status(404).json({ message: "No venues found for the group" });
+    }
+
+    res.json({ Venues: venues });
+  });
+
+
+  //create a new venue for a group specified by its ID
+  
 
   module.exports = router;
