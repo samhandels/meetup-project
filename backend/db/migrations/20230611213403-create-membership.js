@@ -17,13 +17,14 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
         references: {
           model: "Users",
         },
       },
       groupId: {
         type: Sequelize.INTEGER,
-        onDelete: "Cascade",
+        onDelete: "CASCADE",
         references: {
           model: "Groups",
         },

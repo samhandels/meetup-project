@@ -17,7 +17,7 @@ module.exports = {
       },
       eventId: {
         type: Sequelize.INTEGER,
-        onDelete: "Cascade",
+        onDelete: "CASCADE",
         references: {
           model: "Events",
           key: "id",
@@ -25,6 +25,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
         references: {
           model: "Users",
           key: "id",
