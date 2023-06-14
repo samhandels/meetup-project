@@ -370,12 +370,15 @@ router.post("/:eventId/images", requireAuth, async (req, res) => {
 
 
   //membership things
+//get all attendees of an event by ID
+router.get("/:eventId/attendees", async (req, res) => {
+    const { eventId } = req.params;
 
-  router.get("/:eventId/attendees", async (req, res) => {
-    const event = await Event.findByPk(req.params.eventId);
+    const event = await Event.findOne({ where: { id: eventId } });
 
     if (!event) {
-      return res.status(404).json({ message: "Event couldn't be found" });
+      res.status(404).json({ message: "Event couldn't be found" });
+      return;
     }
 
     const group = await Group.findByPk(event.groupId);
@@ -389,44 +392,42 @@ router.post("/:eventId/images", requireAuth, async (req, res) => {
 
     const allAttend = await Attendance.findAll({
       where: {
-        eventId: req.params.eventId,
+        eventId: eventId,
       },
     });
 
-    let Attendees = [];
+    const attendees = [];
 
-    const getUserData = async (userId, status) => {
+    for (const person of allAttend) {
       const user = await User.findOne({
         where: {
-          id: userId,
+          id: person.userId,
         },
         attributes: ["id", "firstName", "lastName"],
       });
 
-      const userJSON = user.toJSON();
+      const userJSON = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      };
       userJSON.Attendance = {
-        status: status,
+        status: person.status,
       };
 
-      return userJSON;
-    };
-
-    for (let person of allAttend) {
-      if (group.organizerId == req.user.id || membership) {
-        const user = await getUserData(person.userId, person.status);
-        Attendees.push(user);
-      } else {
-        if (person.status !== "pending") {
-          const user = await getUserData(person.userId, person.status);
-          Attendees.push(user);
-        }
+      if (group.organizerId === req.user.id || membership) {
+        attendees.push(userJSON);
+      } else if (person.status !== "pending") {
+        attendees.push(userJSON);
       }
     }
 
-    res.json({ Attendees: Attendees });
+    res.json({ attendees });
   });
 
-  router.post("/:eventId/attendance", requireAuth, async (req, res) => {
+
+//request to attend an event based on eventID
+router.post("/:eventId/attendance", requireAuth, async (req, res) => {
     const event = await Event.findByPk(req.params.eventId);
 
     if (!event) {
