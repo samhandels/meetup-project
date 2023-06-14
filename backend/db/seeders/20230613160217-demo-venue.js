@@ -12,7 +12,7 @@ module.exports = {
     options.tableName = 'Venues';
     await queryInterface.bulkInsert(options, [
      {
-       groupId: 1,
+       groupId: 4,
        address: '4100 FairFax Drive',
        city: 'Los Angeles',
        state: 'CA',
@@ -20,7 +20,7 @@ module.exports = {
        lng: 118.3511
      },
      {
-      groupId: 2,
+      groupId: 1,
       address: '62 Malcolm X Blvd',
       city: 'New York',
       state: 'NY',
@@ -28,7 +28,7 @@ module.exports = {
       lng: 73.9465
      },
      {
-      groupId: 3,
+      groupId: 5,
       address: '1925 Las Virgenes Road',
       city: 'Malibu',
       state: 'CA',
@@ -36,7 +36,7 @@ module.exports = {
       lng: 118.7798
      },
      {
-      groupId: 4,
+      groupId: 3,
       address: '3521 N Durango Dr',
       city: 'Las Vegas',
       state: 'NV',
@@ -44,7 +44,7 @@ module.exports = {
       lng: 115.1391
      },
      {
-      groupId: 5,
+      groupId: 2,
       address: 'Longwood Ave',
       city: 'Boston',
       state: 'MA',
