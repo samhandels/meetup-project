@@ -108,17 +108,241 @@ router.get("/", async (req, res) => {
   });
 
 
-  //delete an event specified by ID
-  router.delete("/:eventId", requireAuth, async (req, res) => {
-    const event = await Event.findOne({
-      where: { id: req.params.eventId },
-      attributes: { exclude: ["updatedAt", "createdAt"] },
+  //get details of an event by ID
+  router.get("/:eventId", async (req, res, next) => {
+    const { eventId } = req.params;
+
+  const event = await Event.findByPk(eventId, {
+    include: [
+      {
+        model: EventImage,
+        attributes: ["id", "url", "preview"],
+      },
+      {
+        model: Group,
+        attributes: ["id", "name", "private", "city", "state"],
+      },
+      {
+        model: Venue,
+        attributes: ["id", "address", "city", "state", "lat", "lng"],
+      },
+    ],
+  });
+
+  if (!event) {
+    res.status(404).json({
+      message: "Event couldn't be found.",
+    });
+    return;
+  }
+
+  const numAttending = await Attendance.count({
+    where: { eventId, status: ["waitlist", "attending"] },
+  });
+
+  const eventPojo = {
+    id: event.id,
+    groupId: event.groupId,
+    venueId: event.venueId,
+    name: event.name,
+    description: event.description,
+    type: event.type,
+    capacity: event.capacity,
+    price: event.price,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    numAttending,
+    Group: event.Group ? {
+      id: event.Group.id,
+      name: event.Group.name,
+      private: event.Group.private,
+      city: event.Group.city,
+      state: event.Group.state,
+    } : null,
+    Venue: event.Venue ? {
+      id: event.Venue.id,
+      address: event.Venue.address,
+      city: event.Venue.city,
+      state: event.Venue.state,
+      lat: event.Venue.lat,
+      lng: event.Venue.lng,
+    } : null,
+    EventImages: event.EventImages,
+  };
+
+  res.json(eventPojo);
+});
+
+
+//add an image to an event based on eventID
+router.post("/:eventId/images", requireAuth, async (req, res) => {
+    const { eventId } = req.params;
+    const { url, preview } = req.body;
+
+    const event = await Event.findByPk(eventId);
+
+    if (!event) {
+      return res.status(404).json({ message: "Event couldn't be found" });
+    }
+
+    const image = await EventImage.create({
+      eventId,
+      url,
+      preview,
     });
 
-    if (!event)
-      return res.status(404).json({ message: "Event couldn't be found" });
+    const response = {
+      id: image.id,
+      url: image.url,
+      preview: image.preview,
+    };
 
-    const group = await Group.findOne({ where: { id: event.groupId } });
+    res.status(201).json(response);
+  });
+
+
+  //edit an event by ID
+  router.put("/:eventId", requireAuth, async (req, res) => {
+    const { eventId } = req.params;
+  const event = await Event.findOne({
+    where: {
+      id: eventId,
+    },
+    attributes: {
+      exclude: ["updatedAt", "createdAt"],
+    },
+  });
+
+  if (!event) {
+    res.status(404);
+    return res.json({
+      message: "Event couldn't be found",
+    });
+  }
+
+  const group = await Group.findOne({
+    where: {
+      id: event.groupId,
+    },
+  });
+
+  if (!group) {
+    return res.status(404).json({ message: "Group couldn't be found" });
+  }
+
+  const membership = await Membership.findOne({
+    groupId: event.groupId,
+    userId: req.user.id,
+  });
+
+  if (
+    (group.organizerId !== req.user.id && !membership) ||
+    (group.organizerId !== req.user.id && membership.status !== "co-host")
+  ) {
+    return res.status(401).json({ message: "Forbidden" });
+  }
+
+  const {
+    venueId,
+    name,
+    type,
+    capacity,
+    price,
+    description,
+    startDate,
+    endDate,
+  } = req.body;
+
+  const errors = [];
+
+  if (venueId) {
+    const venue = await Venue.findByPk(venueId);
+    if (!venue) {
+      errors.push("Venue does not exist");
+    }
+  }
+
+  if (!name || name.length < 5) {
+    errors.push("Name must be at least 5 characters");
+  }
+
+  if (type && !["Online", "In person"].includes(type)) {
+    errors.push("Type must be Online or In person");
+  }
+
+  if (!price || typeof price !== "number") {
+    errors.push("Price is invalid");
+  }
+
+  if (!capacity || typeof capacity !== "number") {
+    errors.push("Capacity must be an integer");
+  }
+
+  if (startDate && new Date() > new Date(startDate)) {
+    errors.push("Start date must be in the future");
+  }
+
+  if (!description) {
+    errors.push("Description is required");
+  }
+
+  if (endDate && startDate && endDate < startDate) {
+    errors.push("End date is less than start date");
+  }
+
+  if (errors.length) {
+    return res.status(400).json({ errors });
+  }
+
+  if ( venueId || name || type || capacity || price || description || startDate || endDate) {
+    event.set({
+      venueId,
+      name,
+      type,
+      capacity,
+      price,
+      description,
+      startDate,
+      endDate,
+    });
+  }
+
+  await event.save();
+  res.json(event);
+});
+
+  //delete an event specified by ID
+  router.delete("/:eventId", requireAuth, async (req, res) => {
+    const { eventId } = req.params;
+
+    const event = await Event.findOne({
+      where: {
+        id: eventId,
+      },
+      attributes: {
+        exclude: ["updatedAt", "createdAt"],
+      },
+    });
+
+    if (!event) {
+      res.status(404).json({
+        message: "Event couldn't be found",
+      });
+      return;
+    }
+
+    const group = await Group.findOne({
+      where: {
+        id: event.groupId,
+      },
+    });
+
+    if (!group) {
+      res.status(404).json({
+        message: "Group couldn't be found",
+      });
+      return;
+    }
 
     const membership = await Membership.findOne({
       where: {
@@ -127,10 +351,13 @@ router.get("/", async (req, res) => {
       },
     });
 
-    if (group.organizerId !== req.user.id) {
-      if (!membership || membership.status !== "co-host") {
-        return res.status(403).json({ message: "Forbidden" });
-      }
+    if (
+      group.organizerId !== req.user.id && (!membership || membership.status !== "co-host")
+    ) {
+      res.status(403).json({
+        message: "Forbidden",
+      });
+      return;
     }
 
     await event.destroy();
@@ -139,6 +366,11 @@ router.get("/", async (req, res) => {
       message: "Successfully deleted",
     });
   });
+
+
+
+  //membership things
+
   router.get("/:eventId/attendees", async (req, res) => {
     const event = await Event.findByPk(req.params.eventId);
 
