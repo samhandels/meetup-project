@@ -6,94 +6,106 @@ const { handleValidationErrors } = require("../../utils/validation.js");
 
 //get all events
 router.get("/", async (req, res) => {
-    const { name, type, startDate, page = 1, size = 20 } = req.query;
+    try {
+      const { name, type, startDate } = req.query;
 
-    const whereClause = {};
-    if (name) {
-      whereClause.name = name;
-    }
-    if (type) {
-      whereClause.type = type;
-    }
-    if (startDate) {
-      whereClause.startDate = startDate;
-    }
+      const whereClause = {};
+      if (name) {
+        whereClause.name = name;
+      }
+      if (type) {
+        whereClause.type = type;
+      }
+      if (startDate) {
+        whereClause.startDate = startDate;
+      }
 
-    const events = await Event.findAll({
-      where: whereClause,
-      attributes: {
-        exclude: ["description", "price", "capacity", "createdAt", "updatedAt"],
-      },
-      limit: size,
-      offset: (page - 1) * size
-    });
+      const events = await Event.findAll({
+        where: whereClause,
+        attributes: {
+          exclude: ["description", "price", "capacity", "createdAt", "updatedAt"],
+        },
+        include: [
+          {
+            model: Group,
+            attributes: ["id", "name", "city", "state"],
+          },
+          {
+            model: Venue,
+            attributes: ["id", "city", "state"],
+          },
+          {
+            model: EventImage,
+            attributes: ["id", "url", "preview"],
+          },
+        ],
+      });
 
-    const eventsArr = [];
-    for (const event of events) {
-      const eventPojo = {
-        id: event.id,
-        groupId: event.groupId,
-        venueId: event.venueId,
-        name: event.name,
-        type: event.type,
-        startDate: event.startDate,
-        endDate: event.endDate,
-        numAttending: await getAttendingCount(event.id),
-        previewImage: await getPreviewImage(event),
-        Group: event.Group ? {
-          id: event.Group.id,
-          name: event.Group.name,
-          city: event.Group.city,
-          state: event.Group.state,
-        } : null,
-        Venue: event.Venue ? {
-          id: event.Venue.id,
-          city: event.Venue.city,
-          state: event.Venue.state,
-        } : null,
+      const eventsArr = [];
+      for (const event of events) {
+        const eventPojo = {
+          id: event.id,
+          groupId: event.groupId,
+          venueId: event.venueId,
+          name: event.name,
+          type: event.type,
+          startDate: event.startDate,
+          endDate: event.endDate,
+          numAttending: 0,
+          previewImage: null,
+          Group: event.Group
+            ? {
+                id: event.Group.id,
+                name: event.Group.name,
+                city: event.Group.city,
+                state: event.Group.state,
+              }
+            : null,
+          Venue: event.Venue
+            ? {
+                id: event.Venue.id,
+                city: event.Venue.city,
+                state: event.Venue.state,
+              }
+            : null,
+        };
+
+        const numAttending = await Attendance.count({
+          where: {
+            eventId: event.id,
+            status: ["attending", "waitlist"],
+          },
+        });
+
+        eventPojo.numAttending = numAttending;
+
+        if (Array.isArray(event.EventImages)) {
+          for (const image of event.EventImages) {
+            if (image.preview === true) {
+              eventPojo.previewImage = image.url;
+              break;
+            }
+          }
+        }
+
+        delete eventPojo.EventImages;
+
+        eventsArr.push(eventPojo);
+      }
+
+      const totalCount = await Event.count({ where: whereClause });
+
+      const response = {
+        Events: eventsArr,
       };
 
-      eventsArr.push(eventPojo);
+      res.json(response);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "An error occurred while retrieving events." });
     }
-
-    const totalPages = Math.ceil(events.count / size);
-
-    const response = {
-      Events: eventsArr,
-      pagination: {
-        page: parseInt(page),
-        size: parseInt(size),
-        totalPages: totalPages
-      }
-    };
-
-    res.json(response);
   });
-
-  const getAttendingCount = async (eventId) => {
-    const numAttending = await Attendance.count({
-      where: {
-        eventId,
-        status: ["attending", "waitlist"],
-      },
-    });
-
-    return numAttending;
-  };
-
-  const getPreviewImage = async (event) => {
-    if (!Array.isArray(event.EventImages)) {
-      return null;
-    }
-
-    for (const image of event.EventImages) {
-      if (image.preview === true) {
-        return image.url;
-      }
-    }
-
-    return null;
-  }
 
 
   //get details of an event by ID
