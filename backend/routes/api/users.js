@@ -13,7 +13,7 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage('Please provide a valid email.')
-    .custom(async (value) => {
+    .custom(async (value, { req }) => {
       const user = await User.findOne({ where: { email: value } });
       if (user) {
         throw new Error('User with that email already exists');
