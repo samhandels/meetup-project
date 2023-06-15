@@ -7,7 +7,15 @@ const { handleValidationErrors } = require("../../utils/validation.js");
 //get all events
 router.get("/", async (req, res) => {
     try {
-      const { name, type, startDate } = req.query;
+      const { name, type, startDate, page = 1, size = 20 } = req.query;
+
+      if (page < 1) {
+        return res.status(400).json({ page: "Page must be greater than or equal to 1" });
+      }
+
+      if (size < 1) {
+        return res.status(400).json({ size: "Size must be greater than or equal to 1" });
+      }
 
       const whereClause = {};
       if (name) {
@@ -20,7 +28,7 @@ router.get("/", async (req, res) => {
         whereClause.startDate = startDate;
       }
 
-      const events = await Event.findAll({
+      const events = await Event.findAndCountAll({
         where: whereClause,
         attributes: {
           exclude: ["description", "price", "capacity", "createdAt", "updatedAt"],
@@ -39,10 +47,12 @@ router.get("/", async (req, res) => {
             attributes: ["id", "url", "preview"],
           },
         ],
+        limit: size,
+        offset: (page - 1) * size,
       });
 
       const eventsArr = [];
-      for (const event of events) {
+      for (const event of events.rows) {
         const eventPojo = {
           id: event.id,
           groupId: event.groupId,
@@ -93,19 +103,23 @@ router.get("/", async (req, res) => {
         eventsArr.push(eventPojo);
       }
 
-      const totalCount = await Event.count({ where: whereClause });
+      const totalPages = Math.ceil(events.count / size);
 
       const response = {
         Events: eventsArr,
+        pagination: {
+          page: parseInt(page),
+          size: parseInt(size),
+          totalPages: totalPages,
+        },
       };
 
       res.json(response);
     } catch (error) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while retrieving events." });
+      res.status(500).json({ error: "An error occurred while retrieving events." });
     }
   });
+
 
 
   //get details of an event by ID
