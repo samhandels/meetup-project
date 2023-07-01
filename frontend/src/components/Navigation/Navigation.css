@@ -1,3 +1,41 @@
 .hidden {
     display: none;
   }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .logo-container {
+    font-weight: bold;
+  }
+
+  .navigation-links {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navigation-links li {
+    margin-left: 10px;
+  }
+
+  .navigation-links li:first-child {
+    margin-left: 0;
+  }
+
+  .login {
+    background-color: green;
+  }
+
+  .signup {
+    background-color: blue;
+  }
+  .favicon {
+    height: 80px;
+    width: 90px;
+  }
