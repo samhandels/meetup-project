@@ -15,8 +15,8 @@ function LandingPage({setAuthForm}) {
     return (
       <div className="landing-page">
         <section className="top-section">
-          <h1>The people platform - where interests become friendships</h1>
-          <p>Insert description here...</p>
+          <h1 className="topwords">The people platform - where interests become friendships</h1>
+          <p className="topwords">Insert description here...</p>
           <img src={home} className='home-image'/>
         </section>
 

@@ -3,20 +3,26 @@
   }
 
   .top-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 50px 0;
   }
 
-  .top-section h1 {
-    font-size: 24px;
-    font-weight: bold;
-  }
 
-  .top-section p {
-    font-size: 16px;
-  }
-  .home-image {
+.top-section h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.top-section p {
+  font-size: 16px;
+  margin-right: 10px;
+}
+.home-image {
     height: 200px;
-    ;
+    margin-left: 10px;
   }
 
   .middle-section {
