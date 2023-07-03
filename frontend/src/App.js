@@ -18,7 +18,7 @@ function App() {
       {isLoaded &&
       <Switch>
         <Route exact path="/">
-            <LandingPage />
+          <LandingPage />
         </Route>
       </Switch>}
     </>
