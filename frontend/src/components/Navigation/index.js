@@ -6,7 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import './Navigation.css';
-import favicon from '../../assets/apple-touch-icon.png'
+import favicon from '../../assets/Connect-clear-background.png'
 
 
 function Navigation({ isLoaded }) {
@@ -45,7 +45,7 @@ function Navigation({ isLoaded }) {
       <nav>
         <div className="logo-container">
         <NavLink exact to="/">
-          <img src={favicon} alt="Favicon" className="favicon" /> {/* Use the updated favicon import */}
+          <img src={favicon} alt="Favicon" className="favicon" />
         </NavLink>
         </div>
         <ul className="navigation-links">
