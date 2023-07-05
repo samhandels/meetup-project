@@ -41,8 +41,9 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button className={`"profilebutton" ${showMenu ? "active" : ""}`} onClick={openMenu}>
+        <i className={`fas fa-user-circle profileicon ${showMenu ? "active" : ""}`}/>
+        <i className={`fas fa-chevron-up arrow-icon ${showMenu ? "active" : ""}`} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

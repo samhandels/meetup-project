@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkGetAllGroups } from "../../store/groups";
 import { GroupRecord } from "./GroupRecord";
 import * as groupActions from '../../store/groups'
 import "./GroupPage.css";

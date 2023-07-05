@@ -1,10 +1,18 @@
 import { csrfFetch } from "./csrf";
 
 // Types
+const CREATE_SESSION = "session/POST_SESSION";
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
 
 // Actions
+const createSession = (user) => {
+    return {
+        type: CREATE_SESSION,
+        user,
+    }
+}
+
 const setUser = (user) => {
   return {
     type: SET_USER,
@@ -19,6 +27,22 @@ const removeUser = () => {
 };
 
 // Thunks
+
+export const createSessionThunk = (user) => async (dispatch) => {
+    const { credential, password } = user;
+    const response = await csrfFetch("/api/session", {
+      method: "POST",
+      body: JSON.stringify({
+        credential,
+        password,
+      }),
+    });
+    const resBody = await response.json();
+
+    if (response.ok) dispatch(createSession(resBody.user));
+    return resBody;
+  };
+
 export const login = ({ credential, password }) => async (dispatch) => {
   const response = await csrfFetch("/api/session", {
     method: "POST",
@@ -61,6 +85,9 @@ const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
+    case CREATE_SESSION: {
+        return { ...state, user: action.user };
+      }
     case SET_USER:
       newState = { ...state, user: action.payload };
       return newState;

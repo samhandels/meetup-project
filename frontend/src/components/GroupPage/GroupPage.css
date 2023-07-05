@@ -1,0 +1,59 @@
+.group-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .group-list-header-events,
+  .group-list-header-groups {
+    text-decoration: none;
+    margin-right: 16px;
+    color: inherit;
+  }
+
+  .group-list-item {
+    margin-bottom: 16px;
+  }
+
+  .group-record-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 2px solid lightgray;
+    padding: 16px;
+  }
+
+  .group-record-img {
+    width: 250px;
+    height: 200px;
+  }
+
+  .group-individual-record {
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .group-location,
+  .group-about {
+    margin: 8px 0;
+  }
+
+  .group-about {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .group-event {
+    font-size: 14px;
+    color: var(--dark-gray);
+  }

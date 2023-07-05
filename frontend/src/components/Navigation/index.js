@@ -6,7 +6,8 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import './Navigation.css';
-import favicon from '../../assets/Connect-clear-background.png'
+import favicon from '../../assets/Connect-clear-background.png';
+
 
 
 function Navigation({ isLoaded }) {
@@ -16,7 +17,7 @@ function Navigation({ isLoaded }) {
     if (sessionUser) {
       sessionLinks = (
         <>
-        <li>
+        <li className='start-new-group'>
           <NavLink exact to="/start-group">Start a new group</NavLink>
         </li>
         <li>

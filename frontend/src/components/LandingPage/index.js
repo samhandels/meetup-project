@@ -3,6 +3,8 @@ import {useState, useRef} from 'react'
 import { useSelector } from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import './LandingPage.css';
+import OpenModalButton from '../OpenModalButton';
+import SignupFormModal from '../SignupFormModal';
 import home from '../../assets/home-img.svg';
 import join from '../../assets/join-hands-img.svg';
 import find from '../../assets/find-img.svg';
@@ -60,8 +62,14 @@ function LandingPage({setAuthForm}) {
         </section>
 
         <section className="join-section">
-          <button className="join-button">Join Connect</button>
-        </section>
+        {!user && (
+          <OpenModalButton
+            className="join-button"
+            modalComponent={<SignupFormModal />}
+            buttonText="Join MeetHere"
+          />
+        )}
+      </section>
       </div>
     );
   }

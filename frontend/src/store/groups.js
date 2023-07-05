@@ -117,10 +117,8 @@ const initialState = {
 const groupsReducer = (state = initialState, action) => {
     switch(action.type) {
     case GET_ALL_GROUPS: {
-        const newState = { ...state, allGroups: {} }
-        action.payload.forEach(group => newState.allGroups[group.id] = group);
-        return newState;
-    };
+        return { ...state, allGroups: action.groups };
+    }
     case GET_SINGLE_GROUP: {
         const newState = { ...state, singleGroup: {} };
         newState.singleGroup = action.payload;

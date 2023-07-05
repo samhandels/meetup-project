@@ -52,3 +52,49 @@
     height: 90px;
     width: 110px;
   }
+
+  .profilebutton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .profileicon {
+    color: #5ad9ff;
+    font-size: 30px;
+  }
+
+  .start-new-group {
+    margin-right: 10px;
+    margin-top: 7px;
+}
+
+.start-new-group a {
+    text-decoration: none;
+  }
+
+  .arrow-icon {
+    top: 50%;
+    right: -10px;
+    transform: translateY(-50%);
+    color: grey;
+    font-size: 19px;
+    transition: transform 0.3s ease;
+  }
+
+  .active .arrow-icon {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  .navigation-links li .fa-chevron-up{
+    position: relative;
+    padding-right:3px;
+    margin-left:0px;
+    width:29px;
+    bottom:-4px;
+   }

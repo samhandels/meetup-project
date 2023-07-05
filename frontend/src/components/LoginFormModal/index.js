@@ -16,6 +16,7 @@ function LoginFormModal() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loginError, setLoginError] = useState("");
   const { closeModal } = useModal();
+  const [isDemoUserClicked, setIsDemoUserClicked] = useState(false);
 
   useEffect(() => {
     const validationErrors = {};
@@ -32,11 +33,15 @@ function LoginFormModal() {
     return <Redirect to="/" />;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitted(true);
     setErrors({});
     setLoginError("");
+
+    if (isDemoUserClicked) {
+      await logInDemoUser();
+    }
     if (Object.keys(validationErrors).length === 0) {
       dispatch(sessionActions.login({ credential, password }))
         .then(closeModal)
@@ -48,6 +53,38 @@ function LoginFormModal() {
         });
     }
   };
+
+  const logInDemoUser = async () => {
+    try {
+      await dispatch(
+        sessionActions.createSessionThunk({
+          credential: process.env.REACT_APP_CREDENTIAL,
+          password: process.env.REACT_APP_PASSWORD,
+        })
+      );
+      closeModal();
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        setValidationErrors(error.response.data.errors);
+      } else {
+        console.error(
+          "An error occurred while logging in as a demo user:",
+          error
+        );
+      }
+      setLoginError("Invalid username or password."); // Set login error message
+    }
+  };
+
+  const handleDemoUserClick = () => {
+    dispatch(
+      sessionActions.createSessionThunk({
+        credential: 'Demo-lition',
+        password: "password",
+      })
+    ).then(closeModal);
+  };
+
 
   const isDisabled = credential.length < 4 || password.length < 6;
 
@@ -86,6 +123,14 @@ function LoginFormModal() {
         )}
         <button type="submit" disabled={isDisabled} className="login-button">
           Log In
+        </button>
+        <button
+          className="demo-user-button"
+          type="button"
+          onClick={handleDemoUserClick}
+          onSubmit={handleSubmit}
+        >
+          <u className="demo-user-text">Demo User</u>
         </button>
       </form>
     </>
