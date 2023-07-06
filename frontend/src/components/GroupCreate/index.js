@@ -5,7 +5,7 @@ import * as groupActions from "../../store/groups";
 import "./CrtGrpFrm.css";
 
 const GroupCreate = () => {
-
+stuff
 }
 
 export default GroupCreate;
