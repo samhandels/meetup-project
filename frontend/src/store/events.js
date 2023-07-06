@@ -40,7 +40,7 @@ export const thunkGetIndividualEvent = (eventId) => async dispatch => {
         return data;
     } else {
         const errors = await res.json();
-        return errors; // dont use window.location.href dont refresh page instead usehistory or redirect component
+        return errors;
     }
 }
 

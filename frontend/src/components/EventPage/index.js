@@ -8,10 +8,31 @@ import './EventPage.css';
 const EventPage = () => {
   const dispatch = useDispatch();
   const events = useSelector((state) => Object.values(state.events));
+  const time = new Date();
+  const upcomingEvents = [];
+  const pastEvents = [];
 
   useEffect(() => {
     dispatch(thunkGetAllEvents());
   }, [dispatch]);
+
+  for (let event of events) {
+    if (new Date(event.startDate) > time) {
+      upcomingEvents.push(event);
+    } else {
+      pastEvents.push(event);
+    }
+  }
+
+  upcomingEvents.sort((a, b) => {
+    return new Date(a.startDate) - new Date(b.startDate);
+  });
+
+  pastEvents.sort((a, b) => {
+    return new Date(b.startDate) - new Date(a.startDate);
+  });
+
+  const sortedEvents = upcomingEvents.concat(pastEvents);
 
   return (
     <div className="event-list">
@@ -26,7 +47,7 @@ const EventPage = () => {
       <div>
         <p className="events-in-connect">Events in Connect</p>
       </div>
-      {events.map((event) => (
+      {sortedEvents.map((event) => (
         <EventRecord event={event} key={event.id} />
       ))}
     </div>

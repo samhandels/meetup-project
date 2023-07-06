@@ -5,8 +5,9 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from './components/LandingPage/index';
 import GroupPage from './components/GroupPage';
-import GroupIndividual from './components/GroupIndividual'
+import GroupIndividual from './components/GroupIndividual';
 import EventPage from './components/EventPage';
+import EventIndividual from './components/EventIndividual';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route path="/groups">
           <GroupPage />
+        </Route>
+        <Route path="/events/:eventId">
+          <EventIndividual />
         </Route>
         <Route path="/events">
           <EventPage />

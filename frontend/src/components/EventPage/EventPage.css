@@ -14,11 +14,6 @@
     font-size: 1.75rem;
   }
 
-  .event-header:hover {
-    text-decoration: underline;
-    color: teal;
-  }
-
   .events-in-connect {
     display: flex;
     align-items: center;
@@ -33,6 +28,12 @@
     color: inherit;
     display: flex;
     justify-content: center;
+  }
+
+  .event-list-header-events:hover,
+  .event-list-header-groups:hover{
+    text-decoration: underline;
+    color: teal;
   }
 
   .event-list-item {
