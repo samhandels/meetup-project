@@ -1,10 +1,10 @@
-.group-list {
+.event-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .group-header {
+  .event-header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,20 +14,20 @@
     font-size: 1.75rem;
   }
 
-  .group-header :hover{
+  .event-header:hover {
     text-decoration: underline;
     color: teal;
   }
 
-  .groups-in-connect {
+  .events-in-connect {
     display: flex;
     align-items: center;
     justify-content: center;
     color: gray;
   }
 
-  .group-list-header-events,
-  .group-list-header-groups {
+  .event-list-header-events,
+  .event-list-header-groups {
     text-decoration: none;
     margin-right: 16px;
     color: inherit;
@@ -35,11 +35,11 @@
     justify-content: center;
   }
 
-  .group-list-item {
+  .event-list-item {
     margin-bottom: 16px;
   }
 
-  .group-record-div {
+  .event-record-div {
     display: flex;
     flex-direction: column;
     border-top: 2px solid lightgray;
@@ -48,33 +48,29 @@
     font-size: 1rem;
     margin: 1rem 20%;
     align-items: flex-start;
+    cursor: pointer;
   }
 
-  .group-record-img {
+  .event-record-img {
     width: 250px;
-    height: 200px;
+    height: 150px;
   }
 
-  .group-individual-record {
+  .event-individual-record {
     margin-top: 8px;
     font-size: 18px;
     font-weight: bold;
   }
 
-  .group-location,
-  .group-about {
+  .event-location,
+  .event-description {
     margin: 8px 0;
   }
 
-  .group-about {
+  .event-description {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
     -webkit-box-orient: vertical;
-  }
-
-  .group-event {
-    font-size: 14px;
-    color: var(--dark-gray);
   }

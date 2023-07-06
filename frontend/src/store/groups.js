@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // Action Types
 const GET_ALL_GROUPS = 'groups/GET_ALL_GROUPS';
-const GET_SINGLE_GROUP = 'groups/GET_SINGLE_GROUP';
+const GET_INDIVIDUAL_GROUP = 'groups/GET_INDIVIDUAL_GROUP';
 const CREATE_GROUP = 'groups/CREATE_GROUP';
 const UPDATE_GROUP = 'groups/UPDATE_GROUP';
 const DELETE_GROUP = 'groups/DELETE_GROUP';
@@ -15,9 +15,9 @@ const getAllGroups = (groups) => {
   };
 };
 
-const getSingleGroup = (group) => {
+const getIndividualGroup = (group) => {
   return {
-    type: GET_SINGLE_GROUP,
+    type: GET_INDIVIDUAL_GROUP,
     group,
   };
 };
@@ -55,16 +55,13 @@ export const thunkGetAllGroups = () => async dispatch => {
     }
 }
 
-export const thunkGetSingleGroup = (groupId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/groups/${groupId}`);
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(getSingleGroup(data.group));
-    return data;
-  } else {
-    // Handle error case
-  }
-};
+
+export const thunkGetIndividualGroup = (groupId) => async (dispatch) => {
+    const response = await fetch(`/api/groups/${groupId}`);
+    const resBody = await response.json();
+    if (response.ok) dispatch(getIndividualGroup(resBody));
+    return resBody;
+  };
 
 export const thunkCreateGroup = (group) => async (dispatch) => {
   const res = await csrfFetch('/api/groups', {
@@ -109,7 +106,7 @@ export const thunkDeleteGroup = (groupId) => async (dispatch) => {
 // Initial State
 const initialState = {
   allGroups: {},
-  singleGroup: {},
+  individualGroup: {},
   currentGroup: {}
 };
 
@@ -119,10 +116,8 @@ const groupsReducer = (state = initialState, action) => {
     case GET_ALL_GROUPS: {
         return { ...state, allGroups: action.groups };
     }
-    case GET_SINGLE_GROUP: {
-        const newState = { ...state, singleGroup: {} };
-        newState.singleGroup = action.payload;
-        return newState
+    case GET_INDIVIDUAL_GROUP: {
+        return { ...state, individualGroup: action.group };
     };
     case CREATE_GROUP: {
       const newState = { ...state };

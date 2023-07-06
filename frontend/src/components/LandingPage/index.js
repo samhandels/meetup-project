@@ -36,12 +36,12 @@ function LandingPage({setAuthForm}) {
         <section className="features-section">
           <div className="feature">
           <img src={join} className='join-image'/>
-            <h3>See all groups</h3>
+          <h3 onClick={() => history.push("/groups")}>See all groups</h3>
             <p>Do what you love, connect with others who love it, find your community. The rest is history!</p>
           </div>
           <div className="feature">
           <img src={find} className='find-image'/>
-            <h3>Find an event</h3>
+          <h3 onClick={() => history.push("/events")}>Find an event</h3>
             <p>Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.</p>
           </div>
           <div className={`feature-startgroup${user ? "" : " disabled"}`}>

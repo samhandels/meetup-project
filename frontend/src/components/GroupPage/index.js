@@ -24,14 +24,13 @@ function GroupPage() {
           <Link className="group-list-header-groups" to="/groups">
             Groups
           </Link>
-          <p>Groups in Connect</p>
         </div>
+          <div>
+          <p className="groups-in-connect">Groups in Connect</p>
+          </div>
         <p className="group-list-item"></p>
         {normalizedGroups.map((group) => (
-            <>
           <GroupRecord group={group} key={group.id} />
-          <p className="group-list-item"></p>
-            </>
         ))}
       </div>
     </>

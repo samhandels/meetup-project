@@ -98,3 +98,15 @@
     width:29px;
     bottom:-4px;
    }
+
+   .profile-dropdown {
+    background-color: white;
+    position: absolute;
+    padding-left: 0px;
+    border: solid black 1px;
+    list-style-type: none;
+   }
+
+   .bordertopbutton {
+    border-top: solid black 1px;
+   }
