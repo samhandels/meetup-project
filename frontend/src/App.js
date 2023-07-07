@@ -8,6 +8,8 @@ import GroupPage from './components/GroupPage';
 import GroupIndividual from './components/GroupIndividual';
 import EventPage from './components/EventPage';
 import EventIndividual from './components/EventIndividual';
+import GroupCreate from "./components/GroupCreate";
+import EventCreate from "./components/EventCreate";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,8 +26,14 @@ function App() {
         <Route exact path="/">
           <LandingPage />
         </Route>
+        <Route exact path='/groups/new'>
+          <GroupCreate />
+        </Route>
         <Route path="/groups/:groupId">
           <GroupIndividual />
+        </Route>
+        <Route exact path='/groups/:groupId/events/new"'>
+          <EventCreate />
         </Route>
         <Route path="/groups">
           <GroupPage />

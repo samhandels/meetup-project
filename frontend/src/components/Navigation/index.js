@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
       sessionLinks = (
         <>
         <li className='start-new-group'>
-          <NavLink exact to="/start-group">Start a new group</NavLink>
+          <NavLink exact to="/groups/new">Start a new group</NavLink>
         </li>
         <li>
           <ProfileButton user={sessionUser} />

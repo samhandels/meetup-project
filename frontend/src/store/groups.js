@@ -73,7 +73,8 @@ export const thunkCreateGroup = (group) => async (dispatch) => {
     dispatch(createGroup(data.group));
     return data;
   } else {
-    // Handle error case
+    const errors = await res.json();
+    return errors;
   }
 };
 
@@ -87,7 +88,8 @@ export const thunkUpdateGroup = (group) => async (dispatch) => {
     dispatch(updateGroup(data.group));
     return data;
   } else {
-    // Handle error case
+    const errors = await res.json();
+    return errors;
   }
 };
 
@@ -120,19 +122,14 @@ const groupsReducer = (state = initialState, action) => {
         return { ...state, individualGroup: action.group };
     };
     case CREATE_GROUP: {
-      const newState = { ...state };
-      newState.allGroups[action.group.id] = action.group;
-      return newState;
-    }
-    case UPDATE_GROUP: {
-      const newState = { ...state };
-      newState.allGroups[action.group.id] = action.group;
-      return newState;
-    }
-    case DELETE_GROUP: {
-      const newState = { ...state };
-      delete newState.allGroups[action.groupId];
-      return newState;
+        return { ...state, allGroups: { ...state.allGroups, [action.group.id]: action.group } };
+      }
+      case UPDATE_GROUP: {
+        return { ...state, allGroups: { ...state.allGroups, [action.group.id]: action.group } };
+      }
+      case DELETE_GROUP: {
+        const { [action.groupId]: deletedGroup, ...updatedGroups } = state.allGroups;
+        return { ...state, allGroups: updatedGroups };
     }
     default:
       return state;
