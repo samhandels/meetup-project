@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as groupActions from "../../store/groups";
 import "./GroupCreate.css";
 
-const GroupCreate = () => {
+export const GroupCreate = ({ formType, group }) => {
+//   const user = useSelector((state) => (state.session.user))
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityState, setCityState] = useState("");
@@ -17,6 +18,7 @@ const GroupCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formType === "Create") {
     const errors = {};
     if (!cityState || !cityState.includes(",")) {
       errors.cityState = "Location is required";
@@ -48,25 +50,30 @@ const GroupCreate = () => {
       return;
     }
 
+
     const groupData = {
-      cityState,
+      city: cityState.split(",")[0],
+      state: cityState.split(",")[1],
       name,
       about,
       type,
       privacy,
       url,
     };
+    console.log("this is groupData", groupData)
 
     dispatch(groupActions.thunkCreateGroup(groupData))
       .then((res) => {
         history.push(`/groups/${res.id}`);
       })
       .catch((err) => {
-        //add error validation
+        console.error("Error creating group:", err);
       });
-  };
+  }
+};
 
   return (
+
     <form onSubmit={handleSubmit}>
       <div>
       <h1>Create a Group</h1>

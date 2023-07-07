@@ -121,6 +121,7 @@ router.post("/", requireAuth, handleValidationErrors, async (req, res) => {
       state: req.body.state,
     };
 
+
     const validationErrors = validateGroups(groups);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -165,7 +166,7 @@ router.post("/", requireAuth, handleValidationErrors, async (req, res) => {
       validationErrors.type = "Type must be 'Online' or 'In person'";
     }
 
-    if (!groups.private || !Boolean(groups.private)) {
+    if (groups.private === undefined|| groups.private === null) {
       validationErrors.private = "Private must be a boolean";
     }
 
