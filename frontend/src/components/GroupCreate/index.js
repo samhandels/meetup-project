@@ -67,11 +67,11 @@ const GroupCreate = () => {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
+      <div>
       <h1>Create a Group</h1>
       <h2>We'll walk you through a few steps to build your local community</h2>
       <h3>First, set your group's location.</h3>
-      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="cityState"> Meetup groups meet locally, in person, and online. We'll connect you with people in your area.</label>
           <input
@@ -157,9 +157,9 @@ const GroupCreate = () => {
             <p className="error">{validationErrors.url}</p>
           )}
         </div>
-        <button type="submit" className="form-submit-btn" onClick={handleSubmit}>Create Group</button>
-      </form>
+        <button type="submit" className="form-submit-btn">Create Group</button>
     </div>
+      </form>
   );
 };
 

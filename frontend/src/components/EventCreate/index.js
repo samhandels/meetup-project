@@ -35,13 +35,13 @@ const EventCreate = () => {
 
     if (!capacity) {
       errors.capacity = "Capacity is required";
-    } else if (!Number.isInteger(Number(capacity))) {
-      errors.capacity = "Capacity must be a whole number";
     }
 
     if (!price) {
       errors.price = "Price is required";
-    }
+    } else if (!Number.isInteger(Number(price))) {
+    errors.price = "Price must be a number";
+  }
 
     if (!startDate) {
       errors.startDate = "Start date is required";
@@ -104,7 +104,7 @@ const EventCreate = () => {
       <h1>Create an Event for {group?.name}</h1>
       <form className="event-create-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="name">Event Name</label>
+          <label htmlFor="name">What is the name of your event?</label>
           <input
             type="text"
             id="name"
@@ -116,7 +116,7 @@ const EventCreate = () => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="eventType">Event Type</label>
+          <label htmlFor="eventType">Is this an in person or online event?</label>
           <select
             id="eventType"
             value={eventType}
@@ -131,13 +131,16 @@ const EventCreate = () => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="capacity">Capacity</label>
-          <input
-            type="number"
+          <label htmlFor="capacity">Is this event private or public?</label>
+          <select
             id="capacity"
             value={capacity}
             onChange={(e) => setCapacity(e.target.value)}
-          />
+          >
+            <option value="">(select one)</option>
+            <option value="Private">Private</option>
+            <option value="Public">Public</option>
+          </select>
           {validationErrors.capacity && (
             <span className="error">{validationErrors.capacity}</span>
           )}
@@ -145,7 +148,7 @@ const EventCreate = () => {
         <div className="form-group">
           <label htmlFor="price">Price</label>
           <input
-            type="text"
+            type="integer"
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
