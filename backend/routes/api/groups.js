@@ -265,7 +265,7 @@ router.put("/:groupId",requireAuth, handleValidationErrors, async (req, res) => 
       validationErrors.type = "Type must be 'Online' or 'In person'";
     }
 
-    if (!groupData.private || typeof groupData.private !== "boolean") {
+    if (groupData.private === undefined || groupData.private === null) {
       validationErrors.private = "Private must be a boolean";
     }
 
@@ -506,7 +506,7 @@ router.post("/:groupId/events", requireAuth, handleValidationErrors, async (req,
       startDate,
       endDate,
     } = req.body;
-
+    console.log("**********************************************", capacity, typeof capacity)
     const group = await Group.findByPk(groupId);
 
     if (!group) {

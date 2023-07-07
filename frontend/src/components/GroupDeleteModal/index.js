@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal.js";
 import { useHistory } from "react-router-dom";
 import { thunkDeleteGroup } from "../../store/groups.js";
+import './GroupDeleteModal.css';
 
 
 function DeleteGroup() {

@@ -38,8 +38,7 @@ export const GroupIndividual = () => {
   };
 
   const updateGroup = () => {
-    // history.push(`/groups/${groupId}/events/new`)
-    //add update group route
+    history.push(`/groups/${groupId}/edit`)
   };
 
   const eventsCheck = () => {

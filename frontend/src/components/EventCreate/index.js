@@ -23,6 +23,7 @@ export const EventCreate = ({ formType }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('i ran', formType)
     if (formType === "Create") {
     const errors = {};
 
@@ -80,16 +81,16 @@ export const EventCreate = ({ formType }) => {
     if (Object.keys(errors).length === 0) {
       const eventData = {
         name,
-        eventType,
-        capacity,
-        price,
+        type: eventType,
+        capacity: Number(capacity),
+        price: Number(price),
         startDate,
         endDate,
-        imageURL,
         description,
       };
+      console.log("this is the event data", typeof capacity)
 
-      dispatch(eventActions.thunkCreateEvent(eventData, groupId))
+      dispatch(eventActions.thunkCreateEvent(eventData, groupId, imageURL))
         .then((res) => {
           history.push(`/events/${res.id}`);
         })
@@ -132,16 +133,14 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="capacity">Is this event private or public?</label>
-          <select
+          <label htmlFor="capacity">capacity</label>
+          <input
             id="capacity"
             value={capacity}
+            type="number"
             onChange={(e) => setCapacity(e.target.value)}
           >
-            <option value="">(select one)</option>
-            <option value="Private">Private</option>
-            <option value="Public">Public</option>
-          </select>
+          </input>
           {validationErrors.capacity && (
             <span className="error">{validationErrors.capacity}</span>
           )}
