@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as groupDetails from '../../store/groups';
 import './GroupIndividual.css';
+import { GroupIndividualEvents } from "./GroupIndividualEvents";
+import DeleteGroup from "../GroupDeleteModal";
+import OpenModalButton from "../OpenModalButton";
 
 export const GroupIndividual = () => {
   const dispatch = useDispatch();
@@ -22,13 +25,43 @@ export const GroupIndividual = () => {
   const images = GroupImages || [];
   const previewImage = images.find((img) => img.preview)?.url;
 
-
   const returnGroups = () => {
     history.push("/groups");
   };
 
   const comingSoon = () => {
     alert("Feature coming soon!");
+  };
+
+  const createEvent = () => {
+    history.push(`/groups/${groupId}/events/new`)
+  };
+
+  const updateGroup = () => {
+    // history.push(`/groups/${groupId}/events/new`)
+    //add update group route
+  };
+
+  const eventsCheck = () => {
+    if (groupInfo.Events === undefined) {
+      return <h3 style={{ marginTop: ".2rem" }}>No Upcoming Events</h3>;
+    } else {
+      return (
+        <GroupIndividualEvents events={groupInfo.Events} />
+      );
+    }
+  };
+
+  const navigateToEvent = (eventId) => {
+    history.push(`/events/${eventId}`);
+  };
+
+  const eventsLengthCheck = () => {
+    if (groupInfo.Events === undefined) {
+      return "0";
+    } else {
+      return groupInfo.Events.length;
+    }
   };
 
   return (
@@ -39,11 +72,16 @@ export const GroupIndividual = () => {
         </button>
       </div>
       <div className="group-individual-header">
-        <img
-          src={previewImage}
-          alt="Group Preview"
-          className="group-image"
-        />
+        <img src={previewImage} alt="Group Preview" className="group-image" />
+      </div>
+      <div className="buttons-container-groups">
+        <button className="create-event-button" onClick={createEvent}>
+          Create Event
+        </button>
+        <button className="update-group-button" onClick={updateGroup}>
+          Update
+        </button>
+        <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
       </div>
       <div className="group-info">
         <h2 className="group-name">{groupInfo.name}</h2>
@@ -58,22 +96,20 @@ export const GroupIndividual = () => {
         <p>
           Organized by &nbsp;
           <span className="organizer">
-            {groupInfo["Organizer"].firstName}{" "}
-            {groupInfo["Organizer"].lastName}
+            {groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}
           </span>
         </p>
-          <span>
-          <button className="JoinButton" onClick={comingSoon}>
-        Join this group
-        </button>
-          </span>
         <div className="about">
-        <h3>About</h3>
-        <p>{groupInfo.about}</p>
-      </div>
+          <h3>What we're about</h3>
+          <p>{groupInfo.about}</p>
+        </div>
+        <div className="upcoming-events">
+          <h3>Upcoming Events {eventsLengthCheck()}</h3>
+          {eventsCheck()}
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default GroupIndividual;

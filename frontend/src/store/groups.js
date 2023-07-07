@@ -69,7 +69,6 @@ export const thunkCreateGroup = (group) => async (dispatch) => {
     method: 'POST',
     body: JSON.stringify(group),
   });
-
   if (res.ok) {
     const group = await res.json();
     dispatch(createGroup(group));
@@ -104,7 +103,8 @@ export const thunkDeleteGroup = (groupId) => async (dispatch) => {
     dispatch(deleteGroup(groupId));
     return res;
   } else {
-    // Handle error case
+    const errors = await res.json();
+    return errors;
   }
 };
 

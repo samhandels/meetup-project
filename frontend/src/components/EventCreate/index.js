@@ -5,7 +5,7 @@ import * as groupActions from "../../store/groups";
 import * as eventActions from "../../store/events";
 import "./EventCreate.css";
 
-const EventCreate = () => {
+export const EventCreate = ({ formType }) => {
   const { groupId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const EventCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formType === "Create") {
     const errors = {};
 
     if (!name) {
@@ -90,12 +91,12 @@ const EventCreate = () => {
 
       dispatch(eventActions.thunkCreateEvent(eventData, groupId))
         .then((res) => {
-          // Event creation successful
           history.push(`/events/${res.id}`);
         })
         .catch((err) => {
-          // Handle error, display error message, etc.
+          console.error("Error creating group:", err);
         });
+      }
     }
   };
 

@@ -22,7 +22,6 @@ export const EventIndividual = () => {
   }
 
 
-
   const sendToGroup = () => {
     history.push(`/groups/${event.Group.id}`);
   };
@@ -64,7 +63,7 @@ export const EventIndividual = () => {
               className="event-detail-body-info-group-image"
               width="110"
               height="75"
-              src={`${event.EventImages[0].url}`}
+              src={`${event.EventImages[0].url}`} //wrong image populating
             />
             <div className="event-detail-body-info-group-body">
               <h4 onClick={sendToGroup}>{event.Group.name}</h4>

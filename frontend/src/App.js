@@ -11,6 +11,7 @@ import EventIndividual from './components/EventIndividual';
 import GroupCreate from "./components/GroupCreate";
 import EventCreate from "./components/EventCreate";
 import { GroupForm } from "./components/GroupCreate/GroupForm";
+import { EventForm } from "./components/EventCreate/EventForm";
 
 function App() {
   const dispatch = useDispatch();

@@ -5,7 +5,6 @@ import * as groupActions from "../../store/groups";
 import "./GroupCreate.css";
 
 export const GroupCreate = ({ formType, group }) => {
-//   const user = useSelector((state) => (state.session.user))
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityState, setCityState] = useState("");
@@ -60,7 +59,6 @@ export const GroupCreate = ({ formType, group }) => {
       privacy,
       url,
     };
-    console.log("this is groupData", groupData)
 
     dispatch(groupActions.thunkCreateGroup(groupData))
       .then((res) => {

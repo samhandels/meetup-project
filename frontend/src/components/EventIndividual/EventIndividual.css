@@ -1,4 +1,4 @@
-/************************** EVENT DETAILS HEADER ******************************/
+
 .event-detail-container {
     margin: 0rem 8rem;
     margin-top: 2rem;
@@ -30,8 +30,6 @@
     font-size: 14px;
 }
 
-
-/************************** EVENT DETAILS BODY ******************************/
 .event-detail-body-container {
     margin-top: 1.6rem;
     background-color: rgb(238, 238, 238);
@@ -69,7 +67,6 @@
     border-radius: 1rem;
 }
 
-/************************** EVENT DETAILS BODY CARD ******************************/
 .event-detail-body-info-group-image {
     margin: .5rem .5rem;
     cursor: pointer;
@@ -171,7 +168,6 @@
     background-color: rgb(145, 145, 145);
 }
 
-/************************** EVENT DETAILS BODY DESCRIPTION ******************************/
 .event-detail-body-description {
     margin: 0px 8rem;
 }
