@@ -29,11 +29,11 @@ function App() {
         <Route exact path='/groups/new'>
           <GroupCreate />
         </Route>
-        <Route path="/groups/:groupId">
-          <GroupIndividual />
-        </Route>
         <Route exact path='/groups/:groupId/events/new"'>
           <EventCreate />
+        </Route>
+        <Route path="/groups/:groupId">
+          <GroupIndividual />
         </Route>
         <Route path="/groups">
           <GroupPage />
