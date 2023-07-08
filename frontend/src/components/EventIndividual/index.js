@@ -4,6 +4,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { thunkGetIndividualEvent } from "../../store/events";
 import './EventIndividual.css';
+import DeleteEvent from "../EventDeleteModal";
+import OpenModalButton from "../OpenModalButton";
 
 export const EventIndividual = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,9 @@ export const EventIndividual = () => {
     return null;
   }
 
+  const editEvent = () => {
+    history.push(`/events/${eventId}/edit`)
+  }
 
   const sendToGroup = () => {
     history.push(`/groups/${event.Group.id}`);
@@ -28,7 +33,7 @@ export const EventIndividual = () => {
 
   const imageCheck = () => {
     if (event.previewImage === "no preview image" || event.previewImage === undefined) {
-        event.previewImage = "https://images.unsplash.com/photo-1623018035782-b269248df916?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80";
+        event.previewImage = "https://m.media-amazon.com/images/I/71pIS8f417L.jpg";
       } else {
       return `${event.EventImages[0].url}`;
     }
@@ -71,7 +76,7 @@ export const EventIndividual = () => {
           </div>
           <div className="event-detail-body-info-event">
             <div className="event-detail-body-info-event-time-details">
-              <i className="far fa-regular fa-clock fa-lg"></i>
+              <i className="fa fa-regular fa-clock event-icon"></i>
               <div className="event-detail-body-info-event-details-time-container">
                 <div className="event-detail-body-info-event-details-start-time">
                   <span>START </span>
@@ -90,13 +95,19 @@ export const EventIndividual = () => {
               </div>
             </div>
             <div className="event-detail-body-info-event-price-details">
-              <i className="fa-regular fa-sack-dollar"></i>
+              <i className="fa fa-solid fa-dollar-sign event-icon"></i>
               <p>{eventPrice()}</p>
             </div>
             <div className="event-detail-body-info-event-type-details">
-              <i className="fa-solid fa-map-pin fa-xl"></i>
+              <i className="fa fa-solid fa-map-pin event-icon"></i>
               <p>{event.type}</p>
             </div>
+            <div className="event-delete">
+                      <OpenModalButton
+                        modalComponent={<DeleteEvent />}
+                        buttonText={"Delete"}
+                      />
+                  </div>
             <div className="event-detail-body-info-event-button">{/* <EventDetailButton event={event} /> */}</div>
           </div>
         </div>

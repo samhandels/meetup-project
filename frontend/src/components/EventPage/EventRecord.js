@@ -21,7 +21,8 @@ export const EventRecord = ({ event }) => {
         src={event.previewImage}
         alt="Event Preview"
       ></img>
-            <p className="event-list-info-time">
+      <div className="event-individual-text">
+          <p className="event-list-info-time">
           {event.startDate.split("T")[0]} · {}
           {event.startDate.split("T")[1].split(".")[0]}
           {}
@@ -35,6 +36,8 @@ export const EventRecord = ({ event }) => {
       <p className="event-location">
         {event.Group.city}, {event.Group.state}
       </p>
+
+      </div>
     </div>
   );
 };

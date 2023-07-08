@@ -17,7 +17,7 @@ export const GroupRecord = ({ group }) => {
   };
 
   return (
-    <div onClick={groupHistory} className="group-record-div">
+    <div onClick={groupHistory} className="group-record-div" style={{ cursor: "pointer" }}>
       <img
         className="group-record-img"
         width="200"
@@ -25,19 +25,20 @@ export const GroupRecord = ({ group }) => {
         src={group.previewImage}
         alt="Group Preview"
       ></img>
-      <div
-        className="group-individual-record"
+      <div className="group-text-div">
+      <div className="group-individual-record"
         to={{ pathname: `/groups/${group.id}`, state: {} }}
-      >
+        >
         {group.name}
       </div>
       <p className="group-location">
         {group.city}, {group.state}
       </p>
       <p className="group-about">{group.about}</p>
-      {/* <p className="group-event"> */}
-        {/* {group.Events.length} · {eventStatus()} */}
-      {/* </p> */}
     </div>
+      {/* <p className="group-event">
+        {group.event.length} · {eventStatus()}
+      </p> */}
+</div>
   );
 };

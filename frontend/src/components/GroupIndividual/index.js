@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import * as groupDetails from '../../store/groups';
+import * as eventDetails from '../../store/events';
 import './GroupIndividual.css';
 import { GroupIndividualEvents } from "./GroupIndividualEvents";
 import DeleteGroup from "../GroupDeleteModal";
@@ -10,14 +11,21 @@ import OpenModalButton from "../OpenModalButton";
 export const GroupIndividual = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
+  const { eventId } = useParams();
   const history = useHistory();
-  const user = useSelector((state) => state.session.user);
   const groupInfo = useSelector((state) => state.groups.individualGroup);
-  const groupStore = useSelector((state) => state.groups);
+  const eventInfo = useSelector((state) => state.events.name);
+
+//   const user = useSelector((state) => state.session.user);
+//   const groupStore = useSelector((state) => state.groups);
 
   useEffect(() => {
     dispatch(groupDetails.thunkGetIndividualGroup(groupId));
   }, [dispatch, groupId]);
+
+  useEffect(() => {
+    dispatch(eventDetails.thunkGetEventsByGroup(groupId));
+  }, [dispatch, groupId, eventId]);
 
   if (!groupInfo.id || Number(groupInfo.id) !== Number(groupId)) return null;
 
@@ -42,11 +50,14 @@ export const GroupIndividual = () => {
   };
 
   const eventsCheck = () => {
-    if (groupInfo.Events === undefined) {
+    console.log('eventscheck', eventInfo)
+    if (eventInfo === undefined) {
       return <h3 style={{ marginTop: ".2rem" }}>No Upcoming Events</h3>;
     } else {
       return (
-        <GroupIndividualEvents events={groupInfo.Events} />
+        console.log('eventscheck ran'),
+        eventInfo
+        // <GroupIndividualEvents events={eventInfo.Events} />
       );
     }
   };
@@ -56,6 +67,7 @@ export const GroupIndividual = () => {
   };
 
   const eventsLengthCheck = () => {
+    console.log()
     if (groupInfo.Events === undefined) {
       return "0";
     } else {
@@ -64,7 +76,11 @@ export const GroupIndividual = () => {
   };
 
   return (
+<>
     <div className="group-details-page">
+    <div className="group-details-container">
+
+    </div>
       <div className="return-nav">
         <button className="return-btn" onClick={returnGroups}>
           Return to Groups
@@ -72,16 +88,7 @@ export const GroupIndividual = () => {
       </div>
       <div className="group-individual-header">
         <img src={previewImage} alt="Group Preview" className="group-image" />
-      </div>
-      <div className="buttons-container-groups">
-        <button className="create-event-button" onClick={createEvent}>
-          Create Event
-        </button>
-        <button className="update-group-button" onClick={updateGroup}>
-          Update
-        </button>
-        <OpenModalButton modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
-      </div>
+
       <div className="group-info">
         <h2 className="group-name">{groupInfo.name}</h2>
         <p className="group-location">
@@ -98,17 +105,35 @@ export const GroupIndividual = () => {
             {groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}
           </span>
         </p>
+      <div className="buttons-container-groups">
+        <button className="create-event-button" onClick={createEvent}>
+          Create Event
+        </button>
+        <button className="update-group-button" onClick={updateGroup}>
+          Update
+        </button>
+        <OpenModalButton classname="delete-group-button" modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
+        </div>
+      </div>
+      </div>
+        </div>
+        <div className="about-events-section">
         <div className="about">
+        <div className="organizer-body">
+            <h3>Organizer</h3>
+            <p className="organizer-name">{groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}</p>
+        </div>
           <h3>What we're about</h3>
           <p>{groupInfo.about}</p>
         </div>
         <div className="upcoming-events">
-          <h3>Upcoming Events {eventsLengthCheck()}</h3>
+          <h3>Upcoming Events ({eventsLengthCheck()})</h3>
           {eventsCheck()}
         </div>
-      </div>
-    </div>
+        </div>
+    </>
   );
+
 };
 
 export default GroupIndividual;

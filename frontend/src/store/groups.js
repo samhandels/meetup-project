@@ -6,6 +6,7 @@ const GET_INDIVIDUAL_GROUP = 'groups/GET_INDIVIDUAL_GROUP';
 const CREATE_GROUP = 'groups/CREATE_GROUP';
 const UPDATE_GROUP = 'groups/UPDATE_GROUP';
 const DELETE_GROUP = 'groups/DELETE_GROUP';
+const GET_EVENT_DETAIL = 'groups/GET_EVENT_DETAIL'
 
 // Action Creators
 const getAllGroups = (groups) => {
@@ -42,6 +43,13 @@ const deleteGroup = (groupId) => {
     groupId,
   };
 };
+
+const getEventDetail = (event) => {
+    return {
+      type: GET_EVENT_DETAIL,
+      event
+    }
+  }
 
 // Thunk Action Creators
 export const thunkGetAllGroups = () => async dispatch => {
@@ -108,11 +116,23 @@ export const thunkDeleteGroup = (groupId) => async (dispatch) => {
   }
 };
 
+export const thunkGetEventDetail = (eventId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/events/${eventId}`)
+    if (res.ok) {
+      const data = await res.json()
+      dispatch(getEventDetail(data))
+      return data
+    } else {
+      return window.location.href = "/not-found"
+    }
+  }
+
 // Initial State
 const initialState = {
   allGroups: {},
   individualGroup: {},
-  currentGroup: {}
+  currentGroup: {},
+  eventDetail: {}
 };
 
 // Reducer
@@ -134,6 +154,11 @@ const groupsReducer = (state = initialState, action) => {
         const { [action.groupId]: deletedGroup, ...updatedGroups } = state.allGroups;
         return { ...state, allGroups: updatedGroups };
     }
+    case GET_EVENT_DETAIL: {
+        // const newState = { [action.event.id]: action.event}
+        // return newState
+        return { ...state, eventDetail: action.event.id };
+      }
     default:
       return state;
   }

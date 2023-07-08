@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_EVENTS = 'events/GET_ALL_EVENTS';
 const GET_INDIVIDUAL_EVENT = 'events/GET_INDIVIDUAL_EVENT';
 const CREATE_EVENT = 'events/new'
+const DELETE_EVENT ='events/DELETE_EVENT';
 
 // Action Creators
 const getAllEvents = (events) => {
@@ -26,6 +27,13 @@ const createEvent = (event) => {
         payload: event
     };
 };
+
+const deleteEvent = (eventId) => {
+    return {
+      type: DELETE_EVENT,
+      eventId,
+    };
+  };
 
 // Thunk Action Creators
 export const thunkGetAllEvents = () => async dispatch => {
@@ -79,6 +87,27 @@ export const thunkCreateEvent = (event, groupId, img) => async(dispatch) => {
     }
 }
 
+export const thunkDeleteEvent = (eventId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/events/${eventId}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      const data = res.json();
+      dispatch(deleteEvent(eventId));
+      return data;
+    }
+  };
+
+  export const thunkGetEventsByGroup = (groupId) => async(dispatch) => {
+    const res = await fetch(`/api/groups/${groupId}/events`)
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(getAllEvents(data))
+        return data
+    }
+}
+
 // Initial State
 const initialState = {};
 
@@ -98,6 +127,11 @@ const eventsReducer = (state = initialState, action) => {
         }
         case CREATE_EVENT: {
             return {...state, allEvents: {...state.allEvents}, [action.payload.id]: action.payload }
+        }
+        case DELETE_EVENT: {
+            const newState = { ...state };
+            delete newState[action.event.id];
+            return newState;
         }
         default:
             return state;

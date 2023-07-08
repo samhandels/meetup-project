@@ -1,67 +1,114 @@
 .group-details-page {
-    font-size: 1rem;
-    margin: 1rem 20%;
-  }
-
-  .return-nav {
-    text-align: center;
-    margin: 1rem 0;
-  }
-
-  .return-btn {
-    font-size: 1rem;
-    background-color: #2196f3;
-    color: white;
-    border-radius: 4px;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-  }
-
-  .group-individual-header {
     display: grid;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    font-size: 1rem;
-    grid-template-areas: "image";
-    grid-template-rows: auto;
-    grid-template-columns: 1fr;
-  }
+  font-size: 1rem;
+  margin: 2rem;
+  margin-bottom: 0rem;
+}
 
-  .group-image {
-    grid-area: image;
-    width: 650px;
-    height: 400px;
-    align-self: center;
-  }
+.return-nav {
+  text-align: center;
+  margin: 1rem 0;
+}
 
-  .group-info {
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
+.return-btn {
+  display: flex;
+  align-items: start;
+  font-size: 1rem;
+  color: #2196f3;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
 
-  .group-name {
-    font-size: 2rem;
-  }
+.buttons-container-groups {
+  display: flex;
+  margin-top: 8rem;
 
-  .group-location {
-    margin-bottom: 0.5rem;
-  }
+}
 
-  .group-membership {
-    display: flex;
-    gap: 0.5rem;
-  }
+.buttons-container-groups button {
+  background-color: gray;
+  color: white;
+}
 
-  .organizer {
-    margin-top: 1rem;
-  }
 
-  .about {
-    margin-top: 1rem;
-  }
+.group-individual-header {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  grid-template-areas: "image"
+  'text';
+  grid-template-rows: auto;
+  grid-template-columns: 2fr 3fr;
+  width: 750px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-  .about h3 {
-    margin-bottom: 0.5rem;
-  }
+.group-image {
+  grid-area: image;
+  width: 650px;
+  height: 450px;
+  align-self: center;
+}
+
+.group-info {
+  font-size: 1rem;
+  margin-top: 1rem;
+  min-width: 300px;
+}
+
+.create-event-button {
+    border-radius: 1px solid black;
+    box-shadow: 2px 2px black;
+    margin-right: 1rem;
+}
+
+.update-group-button {
+    margin-right: 1rem;
+    box-shadow: 2px 2px black;
+}
+
+.delete-group-button {
+    box-shadow: 2px 2px black;
+}
+
+.group-info p {
+  color: #999999;
+}
+
+.group-name {
+  font-size: 2rem;
+}
+
+.group-location {
+  margin-bottom: 0.5rem;
+}
+
+.group-membership {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.organizer {
+  margin-top: 1rem;
+}
+
+.about {
+  margin-top: 1rem;
+}
+
+.about h3 {
+  margin-bottom: 0.5rem;
+}
+
+.about-events-section {
+    background-color: rgb(238, 238, 238);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    padding: 3rem;
+    padding-top: 1.5rem;
+}
+
+.organizer-name {
+    color: #999999;
+}

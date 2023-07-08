@@ -116,6 +116,7 @@
 .event-detail-body-info-event-price-details {
     margin-top: 1.4rem;
     margin-bottom: 1.6rem;
+    margin-right: 1.4rem;
     display: flex;
     align-items: center;
 }
@@ -124,10 +125,11 @@
     margin: 0px;
     color: #999999;
     font-size: 14px;
+    margin-left: .3rem;
 }
 
-.fa-sack-dollar {
-    padding-left: 1.1rem;
+.fa-dollar-sign {
+    padding-left: 1.4rem;
     padding-right: 1.04rem;
 }
 
@@ -174,4 +176,10 @@
 
 .event-detail-body-description > p {
     font-size: 12px;
+}
+
+.event-delete {
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
 }

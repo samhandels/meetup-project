@@ -41,19 +41,23 @@
 
   .group-record-div {
     display: flex;
-    flex-direction: column;
     border-top: 2px solid lightgray;
     padding: 16px;
-    width: 70%;
     font-size: 1rem;
-    margin: 1rem 20%;
+    margin: 1rem 5rem;
     align-items: flex-start;
   }
 
-  .group-record-img {
-    width: 250px;
-    height: 200px;
-  }
+  .group-text-div {
+      display: flex;
+      flex-direction: column;
+      margin-left: 2rem;
+    }
+
+    .group-record-img {
+      width: 250px;
+      height: 200px;
+    }
 
   .group-individual-record {
     margin-top: 8px;

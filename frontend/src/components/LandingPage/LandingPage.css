@@ -17,6 +17,14 @@
 
   }
 
+  .hover-pointer {
+    color: #045256;
+    cursor: pointer;
+  }
+
+  .hover-pointer:hover {
+    text-decoration: underline;
+  }
 
 .top-section h1 {
   font-size: 32px;

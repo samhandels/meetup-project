@@ -45,22 +45,28 @@ function LandingPage({setAuthForm}) {
             <p>Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.</p>
           </div>
           <div className={`feature-startgroup${user ? "" : " disabled"}`}>
-          <img src={start} className='start-image'/>
-          <h3 className={user ? "" : "disabled-text"}>Start a new group</h3>
+          {user ? (
+            <Link to="/groups/new" style={{ textDecoration: "none" }}>
+              <img alt="" src={start} />
+        <h3 className="hover-pointer">Start a new group</h3>
+            </Link>
+          ) : (
+            <div>
+              <img alt="" src={start} />
+              <h3 className="disabled-text">Start a new group</h3>
+            </div>
+          )}
           {user ? (
             <p>
-              You don’t have to be an expert to gather people together and explore
-              shared interests.
+              You don’t have to be an expert to gather people together and explore shared interests.
             </p>
           ) : (
-            <p className="disabled-text">
-              You don’t have to be an expert to gather people together and explore
-              shared interests.
+            <p className="disabled-paragraph">
+              You don’t have to be an expert to gather people together and explore shared interests.
             </p>
           )}
         </div>
         </section>
-
         <section className="join-section">
         {!user && (
           <OpenModalButton
