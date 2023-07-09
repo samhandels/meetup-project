@@ -76,10 +76,9 @@ export const GroupIndividual = () => {
   };
 
   return (
-<>
+ <>
     <div className="group-details-page">
     <div className="group-details-container">
-
     </div>
       <div className="return-nav">
         <button className="return-btn" onClick={returnGroups}>

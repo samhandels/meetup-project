@@ -54,10 +54,15 @@
       margin-left: 2rem;
     }
 
+
     .group-record-img {
       width: 250px;
       height: 200px;
     }
+
+    .group-list .group-record-div img{
+        flex:0 0 auto;
+       }
 
   .group-individual-record {
     margin-top: 8px;

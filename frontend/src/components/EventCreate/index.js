@@ -112,6 +112,7 @@ export const EventCreate = ({ formType }) => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Event Name"
           />
           {validationErrors.name && (
             <span className="error">{validationErrors.name}</span>
@@ -133,12 +134,13 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="capacity">capacity</label>
+          <label htmlFor="capacity">Is this event private or public?</label>
           <input
             id="capacity"
             value={capacity}
             type="number"
             onChange={(e) => setCapacity(e.target.value)}
+            placeholder="img url"
           >
           </input>
           {validationErrors.capacity && (

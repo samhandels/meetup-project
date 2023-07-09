@@ -8,8 +8,7 @@ export const GroupIndividualEvents = ({ events }) => {
 
   for (let event of events) {
     if (event.previewImage === undefined) {
-      event.previewImage =
-        "https://vishwaentertainers.com/wp-content/uploads/2020/04/No-Preview-Available.jpg";
+      event.previewImage = "unavailable";
     }
     if (new Date(event.startDate) > time) {
       upcomingEvent.push(event);

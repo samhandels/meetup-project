@@ -74,9 +74,9 @@ export const GroupCreate = ({ formType, group }) => {
 
     <form onSubmit={handleSubmit}>
       <div>
-      <h1>Create a Group</h1>
-      <h2>We'll walk you through a few steps to build your local community</h2>
-      <h3>First, set your group's location.</h3>
+      <h1>BECOME AN ORGANIZER</h1>
+      <h2 className="first-h2">We'll walk you through a few steps to build your local community</h2>
+      <h3 className="groupcreate-h3">First, set your group's location.</h3>
         <div>
           <label htmlFor="cityState"> Meetup groups meet locally, in person, and online. We'll connect you with people in your area.</label>
           <input
@@ -84,26 +84,28 @@ export const GroupCreate = ({ formType, group }) => {
             id="cityState"
             value={cityState}
             onChange={(e) => setCityState(e.target.value)}
+            placeholder="City, STATE"
           />
           {validationErrors.cityState && (
             <p className="error">{validationErrors.cityState}</p>
           )}
         </div>
         <div>
-            <h3>What will your group's name be?</h3>
+            <h3 className="groupcreate-h3">What will your group's name be?</h3>
           <label htmlFor="name">Choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</label>
           <input
             type="text"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="What is your group name?"
           />
           {validationErrors.name && (
             <p className="error">{validationErrors.name}</p>
           )}
         </div>
         <div>
-            <h3>Now describe what your group will be about</h3>
+            <h3 className="groupcreate-h3">Now describe what your group will be about</h3>
           <label htmlFor="about">People will see this when we promote your group, but you'll be able to add to it later, too.</label>
           <ol>
             <li>What's the purpose of the group?</li>
@@ -114,13 +116,14 @@ export const GroupCreate = ({ formType, group }) => {
             id="about"
             value={about}
             onChange={(e) => setAbout(e.target.value)}
+            placeholder="Please write at least 30 characters"
           ></textarea>
           {validationErrors.about && (
             <p className="error">{validationErrors.about}</p>
           )}
         </div>
         <div>
-        <h3>Final steps...</h3>
+        <h3 className="groupcreate-h3">Final steps...</h3>
           <label htmlFor="type">Is this an in person or online group?</label>
           <select
               className="form-select"
@@ -151,18 +154,22 @@ export const GroupCreate = ({ formType, group }) => {
           )}
         </div>
         <div>
-          <label htmlFor="url">URL</label>
+          <label htmlFor="url">Please add an image url for your group below:</label>
           <input
             type="text"
             id="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            placeholder="image Url"
           />
           {validationErrors.url && (
             <p className="error">{validationErrors.url}</p>
           )}
         </div>
+        <div className="bottom-button">
         <button type="submit" className="form-submit-btn">Create Group</button>
+
+        </div>
     </div>
       </form>
   );
