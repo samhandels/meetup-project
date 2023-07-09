@@ -20,10 +20,10 @@ export const EventCreate = ({ formType }) => {
   const [imageURL, setImageURL] = useState("");
   const [description, setDescription] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
+  const [privacy, setPrivacy] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('i ran', formType)
     if (formType === "Create") {
     const errors = {};
 
@@ -38,6 +38,10 @@ export const EventCreate = ({ formType }) => {
     if (!capacity) {
       errors.capacity = "Capacity is required";
     }
+
+    if (!privacy) {
+        errors.privacy = "Privacy setting is required";
+      }
 
     if (!price) {
       errors.price = "Price is required";
@@ -86,6 +90,7 @@ export const EventCreate = ({ formType }) => {
         price: Number(price),
         startDate,
         endDate,
+        privacy,
         description,
       };
       console.log("this is the event data", typeof capacity)
@@ -97,13 +102,23 @@ export const EventCreate = ({ formType }) => {
         .catch((err) => {
           console.error("Error creating group:", err);
         });
+
+        dispatch(groupActions.thunkGetIndividualGroup(group, imageURL))
+          .then((res) => {
+            history.push(`/events/${res.id}`);
+          })
+          .catch((err) => {
+            console.error("Error creating group:", err);
+          });
+
       }
     }
   };
 
+
   return (
     <div className="event-create-container">
-      <h1>Create an Event for {group?.name}</h1>
+      <h1>Create an Event for {}</h1>
       <form className="event-create-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">What is the name of your event?</label>
@@ -119,7 +134,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="eventType">Is this an in person or online event?</label>
+          <label htmlFor="eventType" className="eventType">Is this an in person or online event?</label>
           <select
             id="eventType"
             value={eventType}
@@ -134,17 +149,32 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="capacity">Is this event private or public?</label>
+          <label htmlFor="capacity">Capacity</label>
           <input
             id="capacity"
             value={capacity}
             type="number"
             onChange={(e) => setCapacity(e.target.value)}
-            placeholder="img url"
+            placeholder="# People allowed"
           >
           </input>
           {validationErrors.capacity && (
             <span className="error">{validationErrors.capacity}</span>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="privacy">Privacy</label>
+          <select
+            id="privacy"
+            value={privacy}
+            onChange={(e) => setPrivacy(e.target.value)}
+          >
+            <option value="">(select one)</option>
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+          </select>
+          {validationErrors.privacy && (
+            <span className="error">{validationErrors.privacy}</span>
           )}
         </div>
         <div className="form-group">
@@ -154,13 +184,14 @@ export const EventCreate = ({ formType }) => {
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            placeholder="0"
           />
           {validationErrors.price && (
             <span className="error">{validationErrors.price}</span>
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="startDate">Start Date</label>
+          <label htmlFor="startDate" className="start-date">Start Date</label>
           <input
             type="datetime-local"
             id="startDate"
@@ -184,23 +215,25 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="imageURL">Image URL</label>
-          <input
+          <label htmlFor="imageURL" className="img-url">Image URL</label>
+          <input className="img-input"
             type="text"
             id="imageURL"
             value={imageURL}
             onChange={(e) => setImageURL(e.target.value)}
+            placeholder="Image URL"
           />
           {validationErrors.imageURL && (
             <span className="error">{validationErrors.imageURL}</span>
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description" className="description">Description</label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Please include at least 30 characters"
           ></textarea>
           {validationErrors.description && (
             <span className="error">{validationErrors.description}</span>

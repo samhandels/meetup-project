@@ -67,3 +67,8 @@
   .event-create-form .create-event-btn:hover {
     background-color: blue;
   }
+
+  .eventType, .start-date, .img-url, .description {
+    border-top: 2px solid lightgray;
+  }
+

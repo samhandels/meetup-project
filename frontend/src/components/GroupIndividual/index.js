@@ -14,18 +14,18 @@ export const GroupIndividual = () => {
   const { eventId } = useParams();
   const history = useHistory();
   const groupInfo = useSelector((state) => state.groups.individualGroup);
-  const eventInfo = useSelector((state) => state.events.name);
-
+  const eventInfo = useSelector((state) => state.events);
 //   const user = useSelector((state) => state.session.user);
 //   const groupStore = useSelector((state) => state.groups);
+
+useEffect(() => {
+  dispatch(eventDetails.thunkGetEventsByGroup(groupId));
+}, [dispatch, groupId, eventId]);
 
   useEffect(() => {
     dispatch(groupDetails.thunkGetIndividualGroup(groupId));
   }, [dispatch, groupId]);
 
-  useEffect(() => {
-    dispatch(eventDetails.thunkGetEventsByGroup(groupId));
-  }, [dispatch, groupId, eventId]);
 
   if (!groupInfo.id || Number(groupInfo.id) !== Number(groupId)) return null;
 
@@ -55,9 +55,7 @@ export const GroupIndividual = () => {
       return <h3 style={{ marginTop: ".2rem" }}>No Upcoming Events</h3>;
     } else {
       return (
-        console.log('eventscheck ran'),
-        eventInfo
-        // <GroupIndividualEvents events={eventInfo.Events} />
+        <GroupIndividualEvents events={eventInfo} />
       );
     }
   };
