@@ -64,13 +64,20 @@
   font-size: 16px;
   margin-right: 10px;
 }
+
+.headerwords {
+  color: black;
+}
+
 .home-image {
+  margin-top: 5rem;
     height: 200px;
     margin-left: 10px;
   }
 
   .middle-section {
-    padding: 50px 0;
+    padding: 4rem 5rem;
+    margin-top: 1rem;
   }
 
   .middle-section h2 {

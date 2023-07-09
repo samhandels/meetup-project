@@ -59,18 +59,21 @@
 }
 
 .create-event-button {
-    border-radius: 1px solid black;
     box-shadow: 2px 2px black;
     margin-right: 1rem;
+    border: 2px solid black;
 }
 
 .update-group-button {
     margin-right: 1rem;
     box-shadow: 2px 2px black;
+    border-radius: 5px solid black;
+    border: 2px solid black;
 }
 
-.delete-group-button {
+.delte-group-button-div {
     box-shadow: 2px 2px black;
+    border: 2px solid black;
 }
 
 .group-info p {

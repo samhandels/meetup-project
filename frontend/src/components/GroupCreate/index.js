@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import * as groupActions from "../../store/groups";
 import "./GroupCreate.css";
 
-export const GroupCreate = ({ formType, group }) => {
+export const GroupCreate = ({ formType }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [cityState, setCityState] = useState("");
@@ -60,7 +60,7 @@ export const GroupCreate = ({ formType, group }) => {
       url,
     };
 
-    dispatch(groupActions.thunkCreateGroup(groupData))
+    dispatch(groupActions.thunkCreateGroup(groupData, url))
       .then((res) => {
         history.push(`/groups/${res.id}`);
       })
@@ -160,7 +160,7 @@ export const GroupCreate = ({ formType, group }) => {
             id="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="image Url"
+            placeholder="Image Url"
           />
           {validationErrors.url && (
             <p className="error">{validationErrors.url}</p>

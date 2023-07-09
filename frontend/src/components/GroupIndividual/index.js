@@ -80,7 +80,7 @@ useEffect(() => {
     </div>
       <div className="return-nav">
         <button className="return-btn" onClick={returnGroups}>
-          Return to Groups
+        &lt; Return to Groups
         </button>
       </div>
       <div className="group-individual-header">
@@ -109,7 +109,9 @@ useEffect(() => {
         <button className="update-group-button" onClick={updateGroup}>
           Update
         </button>
+        <div className="delte-group-button-div">
         <OpenModalButton classname="delete-group-button" modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
+        </div>
         </div>
       </div>
       </div>
