@@ -55,6 +55,7 @@ export const GroupIndividualEvents = ({ events }) => {
                   style={{ marginLeft: "1rem", marginTop: "1.25rem" }}
                 ></img>
               </div>
+              
               <div className="event-cards-info" onClick={() => history.push(`/events/${event.id}`)}>
                 <p className="event-cards-info-time">
                   {event.startDate.split("T")[0]} · {"<"}
