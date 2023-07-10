@@ -15,7 +15,7 @@ export const GroupIndividual = () => {
   const history = useHistory();
   const groupInfo = useSelector((state) => state.groups.individualGroup);
   const eventInfo = useSelector((state) => state.events);
-  const user = useSelector((state) => state.session.user); // Add this line
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(eventDetails.thunkGetEventsByGroup(groupId));

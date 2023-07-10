@@ -122,69 +122,167 @@ router.get("/", async (req, res) => {
 
 
 
-  //get details of an event by ID
-  router.get("/:eventId", async (req, res, next) => {
-    const { eventId } = req.params;
+  // get details of an event by ID
+//   router.get("/:eventId", async (req, res, next) => {
+//     const { eventId } = req.params;
 
-  const event = await Event.findByPk(eventId, {
-    include: [
-      {
-        model: EventImage,
-        attributes: ["id", "url", "preview"],
+//   const event = await Event.findByPk(eventId, {
+//     include: [
+//       {
+//         model: Group,
+//         attributes: ["id", "name", "private", "city", "state"],
+//         include: [{
+//           model: GroupImage,
+//           attributes:["url"]
+//         },{
+//           model: User,
+//           attributes: ["firstName", "lastName", "id"],
+//           as: "Organizer",
+//         }]
+//       },
+//       {
+//         model: EventImage,
+//         attributes: ["id", "url", "preview"],
+//       },
+//       {
+//         model: Group,
+//         attributes: ["id", "name", "private", "city", "state"],
+//       },
+//       {
+//         model: Venue,
+//         attributes: ["id", "address", "city", "state", "lat", "lng"],
+//       },
+//     ],
+//   });
+
+//   if (!event) {
+//     res.status(404).json({
+//       message: "Event couldn't be found.",
+//     });
+//     return;
+//   }
+
+//   const numAttending = await Attendance.count({
+//     where: { eventId, status: ["waitlist", "attending"] },
+//   });
+
+//   const eventPojo = {
+//     id: event.id,
+//     groupId: event.groupId,
+//     venueId: event.venueId,
+//     name: event.name,
+//     description: event.description,
+//     type: event.type,
+//     capacity: event.capacity,
+//     price: event.price,
+//     startDate: event.startDate,
+//     endDate: event.endDate,
+//     numAttending,
+//     Group: event.Group ? {
+//       id: event.Group.id,
+//       name: event.Group.name,
+//       private: event.Group.private,
+//       city: event.Group.city,
+//       state: event.Group.state,
+//     } : null,
+//     Venue: event.Venue ? {
+//       id: event.Venue.id,
+//       address: event.Venue.address,
+//       city: event.Venue.city,
+//       state: event.Venue.state,
+//       lat: event.Venue.lat,
+//       lng: event.Venue.lng,
+//     } : null,
+//     EventImages: event.EventImages,
+//   };
+
+//   res.json(eventPojo);
+// });
+
+router.get("/:eventId", async (req, res, next) => {
+  const { eventId } = req.params;
+
+const event = await Event.findByPk(eventId, {
+  include: [
+    {
+      model: Group,
+      attributes: ["id", "name", "private", "city", "state"],
+      include: [{
+        model: GroupImage,
+        attributes:["url"]
+      },{
+        model: User,
+        attributes: ["firstName", "lastName", "id"],
+        as: "Organizer",
+      }]
+    },
+    {
+      model: Venue,
+      attributes: {
+        exclude: ["groupId", "updatedAt", "createdAt"],
       },
-      {
-        model: Group,
-        attributes: ["id", "name", "private", "city", "state"],
+    },
+    {
+      model: EventImage,
+      as: "EventImages",
+      attributes: {
+        exclude: ["eventId", "updatedAt", "createdAt"],
       },
-      {
-        model: Venue,
-        attributes: ["id", "address", "city", "state", "lat", "lng"],
-      },
-    ],
+    },
+  ],
+});
+
+if (!event) {
+  res.status(404).json({
+    message: "Event couldn't be found.",
   });
+  return;
+}
 
-  if (!event) {
-    res.status(404).json({
-      message: "Event couldn't be found.",
-    });
-    return;
-  }
+const numAttending = await Attendance.count({
+  where: { eventId, status: ["waitlist", "attending"] },
+});
 
-  const numAttending = await Attendance.count({
-    where: { eventId, status: ["waitlist", "attending"] },
-  });
+const eventPojo = {
+  id: event.id,
+  groupId: event.groupId,
+  venueId: event.venueId,
+  name: event.name,
+  description: event.description,
+  type: event.type,
+  capacity: event.capacity,
+  price: event.price,
+  startDate: event.startDate,
+  endDate: event.endDate,
+  numAttending,
+  Group: event.Group
+    ? {
+        id: event.Group.id,
+        name: event.Group.name,
+        private: event.Group.private,
+        city: event.Group.city,
+        state: event.Group.state,
+        Organizer: {
+          id: event.Group.Organizer.id,
+          firstName: event.Group.Organizer.firstName,
+          lastName: event.Group.Organizer.lastName,
+        },
+      }
+    : null,
+  Venue: event.Venue
+    ? {
+        id: event.Venue.id,
+        address: event.Venue.address,
+        city: event.Venue.city,
+        state: event.Venue.state,
+        lat: event.Venue.lat,
+        lng: event.Venue.lng,
+      }
+    : null,
+  EventImages: event.EventImages,
+};
 
-  const eventPojo = {
-    id: event.id,
-    groupId: event.groupId,
-    venueId: event.venueId,
-    name: event.name,
-    description: event.description,
-    type: event.type,
-    capacity: event.capacity,
-    price: event.price,
-    startDate: event.startDate,
-    endDate: event.endDate,
-    numAttending,
-    Group: event.Group ? {
-      id: event.Group.id,
-      name: event.Group.name,
-      private: event.Group.private,
-      city: event.Group.city,
-      state: event.Group.state,
-    } : null,
-    Venue: event.Venue ? {
-      id: event.Venue.id,
-      address: event.Venue.address,
-      city: event.Venue.city,
-      state: event.Venue.state,
-      lat: event.Venue.lat,
-      lng: event.Venue.lng,
-    } : null,
-    EventImages: event.EventImages,
-  };
-
-  res.json(eventPojo);
+res.json(eventPojo);
 });
 
 

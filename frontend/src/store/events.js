@@ -60,6 +60,7 @@ export const thunkGetIndividualEvent = (eventId) => async dispatch => {
     }
 }
 
+
 export const thunkCreateEvent = (event, groupId, img) => async(dispatch) => {
     console.log("in the thunk", img)
     const res = await csrfFetch(`/api/groups/${groupId}/events`, {
