@@ -1,19 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal.js";
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { thunkDeleteEvent } from '../../store/events.js'
+
 
 function DeleteEvent() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const event = useSelector(state => state.events.individualEvent);
-  const group = useSelector(state => state.groups.individualGroup)
+  const { eventId } = useParams();
+  const event = useSelector(state => state.events[eventId]);
+  const group = useSelector(state => state.groups.individualGroup);
   const { closeModal } = useModal();
+  console.log("event", event)
 
   const handleDelete = (e) => {
     e.preventDefault();
-    console.log(event)
-    dispatch(thunkDeleteEvent(event.id));
+    dispatch(thunkDeleteEvent(eventId));
     closeModal();
     history.push(`/groups/${group.id}`);
   };

@@ -75,6 +75,10 @@
     box-shadow: 2px 2px black;
     border: 2px solid black;
 }
+.join-group-button {
+    box-shadow: 2px 2px black;
+    border: 2px solid black;
+}
 
 .group-info p {
   color: #999999;

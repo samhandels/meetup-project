@@ -73,12 +73,12 @@ export const GroupCreate = ({ formType }) => {
   return (
 
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="groupcreate-maindiv">
       <h1>BECOME AN ORGANIZER</h1>
       <h2 className="first-h2">We'll walk you through a few steps to build your local community</h2>
       <h3 className="groupcreate-h3">First, set your group's location.</h3>
         <div>
-          <label htmlFor="cityState"> Meetup groups meet locally, in person, and online. We'll connect you with people in your area.</label>
+          <label className="text-above-label" htmlFor="cityState"> Meetup groups meet locally, in person, and online. We'll connect you with people in your area.</label>
           <input
             type="text"
             id="cityState"
@@ -92,7 +92,7 @@ export const GroupCreate = ({ formType }) => {
         </div>
         <div>
             <h3 className="groupcreate-h3">What will your group's name be?</h3>
-          <label htmlFor="name">Choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</label>
+          <label className="text-above-label" htmlFor="name">Choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</label>
           <input
             type="text"
             id="name"

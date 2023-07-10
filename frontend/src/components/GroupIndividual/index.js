@@ -15,17 +15,15 @@ export const GroupIndividual = () => {
   const history = useHistory();
   const groupInfo = useSelector((state) => state.groups.individualGroup);
   const eventInfo = useSelector((state) => state.events);
-//   const user = useSelector((state) => state.session.user);
-//   const groupStore = useSelector((state) => state.groups);
+  const user = useSelector((state) => state.session.user); // Add this line
 
-useEffect(() => {
-  dispatch(eventDetails.thunkGetEventsByGroup(groupId));
-}, [dispatch, groupId, eventId]);
+  useEffect(() => {
+    dispatch(eventDetails.thunkGetEventsByGroup(groupId));
+  }, [dispatch, groupId, eventId]);
 
   useEffect(() => {
     dispatch(groupDetails.thunkGetIndividualGroup(groupId));
   }, [dispatch, groupId]);
-
 
   if (!groupInfo.id || Number(groupInfo.id) !== Number(groupId)) return null;
 
@@ -42,21 +40,22 @@ useEffect(() => {
   };
 
   const createEvent = () => {
-    history.push(`/groups/${groupId}/events/new`)
+    history.push(`/groups/${groupId}/events/new`);
   };
 
   const updateGroup = () => {
-    history.push(`/groups/${groupId}/edit`)
+    history.push(`/groups/${groupId}/edit`);
+  };
+
+  const deleteGroup = () => {
+    // Implement the delete group functionality
   };
 
   const eventsCheck = () => {
-    console.log('eventscheck', eventInfo)
     if (eventInfo === undefined) {
       return <h3 style={{ marginTop: ".2rem" }}>No Upcoming Events</h3>;
     } else {
-      return (
-        <GroupIndividualEvents events={eventInfo} />
-      );
+      return <GroupIndividualEvents events={eventInfo} />;
     }
   };
 
@@ -65,7 +64,6 @@ useEffect(() => {
   };
 
   const eventsLengthCheck = () => {
-    console.log()
     if (groupInfo.Events === undefined) {
       return "0";
     } else {
@@ -74,65 +72,70 @@ useEffect(() => {
   };
 
   return (
- <>
-    <div className="group-details-page">
-    <div className="group-details-container">
-    </div>
-      <div className="return-nav">
-        <button className="return-btn" onClick={returnGroups}>
-        &lt; Return to Groups
-        </button>
-      </div>
-      <div className="group-individual-header">
-        <img src={previewImage} alt="Group Preview" className="group-image" />
+    <>
+      <div className="group-details-page">
+        <div className="group-details-container"></div>
+        <div className="return-nav">
+          <button className="return-btn" onClick={returnGroups}>
+            &lt; Return to Groups
+          </button>
+        </div>
+        <div className="group-individual-header">
+          <img src={previewImage} alt="Group Preview" className="group-image" />
 
-      <div className="group-info">
-        <h2 className="group-name">{groupInfo.name}</h2>
-        <p className="group-location">
-          {groupInfo.city}, {groupInfo.state}
-        </p>
-        <div className="group-membership">
-          <p>{groupInfo.numMembers} Members</p>
-          <p>&bull;</p>
-          <p>{groupInfo.private ? "Private" : "Public"}</p>
-        </div>
-        <p>
-          Organized by &nbsp;
-          <span className="organizer">
-            {groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}
-          </span>
-        </p>
-      <div className="buttons-container-groups">
-        <button className="create-event-button" onClick={createEvent}>
-          Create Event
-        </button>
-        <button className="update-group-button" onClick={updateGroup}>
-          Update
-        </button>
-        <div className="delte-group-button-div">
-        <OpenModalButton classname="delete-group-button" modalComponent={<DeleteGroup />} buttonText={'Delete'}/>
-        </div>
+          <div className="group-info">
+            <h2 className="group-name">{groupInfo.name}</h2>
+            <p className="group-location">
+              {groupInfo.city}, {groupInfo.state}
+            </p>
+            <div className="group-membership">
+              <p>{groupInfo.numMembers} Members</p>
+              <p>&bull;</p>
+              <p>{groupInfo.private ? "Private" : "Public"}</p>
+            </div>
+            <p>
+              Organized by &nbsp;
+              <span className="organizer">
+                {groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}
+              </span>
+            </p>
+            <div className="buttons-container-groups">
+              {user ? (
+                <>
+                  <button className="create-event-button" onClick={createEvent}>
+                    Create Event
+                  </button>
+                  <button className="update-group-button" onClick={updateGroup}>
+                    Update
+                  </button>
+                  <div className="delte-group-button-div">
+                    <OpenModalButton classname="delete-group-button" modalComponent={<DeleteGroup />} buttonText={'Delete'} />
+                  </div>
+                </>
+              ) : (
+                <button className="join-group-button" onClick={comingSoon}>
+                  Join this group
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-      </div>
-        </div>
-        <div className="about-events-section">
+      <div className="about-events-section">
         <div className="about">
-        <div className="organizer-body">
+          <div className="organizer-body">
             <h3>Organizer</h3>
-            <p className="organizer-name">{groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}</p>
-        </div>
+            <p className="organizer-name">
+              {groupInfo["Organizer"].firstName} {groupInfo["Organizer"].lastName}
+            </p>
+          </div>
           <h3>What we're about</h3>
           <p>{groupInfo.about}</p>
         </div>
-        <div className="upcoming-events">
-          <h3>Upcoming Events ({eventsLengthCheck()})</h3>
-          {eventsCheck()}
-        </div>
-        </div>
+        <div className="upcoming-events">{eventsCheck()}</div>
+      </div>
     </>
   );
-
 };
 
 export default GroupIndividual;

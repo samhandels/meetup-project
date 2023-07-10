@@ -72,20 +72,54 @@ export const thunkGetIndividualGroup = (groupId) => async (dispatch) => {
   };
 
 
-export const thunkCreateGroup = (group) => async (dispatch) => {
-  const res = await csrfFetch('/api/groups', {
-    method: 'POST',
-    body: JSON.stringify(group),
-  });
-  if (res.ok) {
-    const group = await res.json();
-    dispatch(createGroup(group));
-    return group;
-  } else {
-    const errors = await res.json();
-    return errors;
-  }
-};
+// export const thunkCreateGroup = (group) => async (dispatch) => {
+//   const res = await csrfFetch('/api/groups', {
+//     method: 'POST',
+//     body: JSON.stringify(group),
+//   });
+//   if (res.ok) {
+//     const group = await res.json();
+//     dispatch(createGroup(group));
+//     return group;
+//   } else {
+//     const errors = await res.json();
+//     return errors;
+//   }
+// };
+
+export const thunkCreateGroup = (group, imgUrl) => async (dispatch) => {
+    const res = await csrfFetch('/api/groups', {
+      method: 'POST',
+      body: JSON.stringify(group),
+    });
+
+    if (res.ok) {
+      const createdGroup = await res.json();
+
+      if (imgUrl) {
+        const imgRes = await csrfFetch(`/api/groups/${createdGroup.id}/images`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: imgUrl,
+            preview: true,
+          }),
+        });
+
+        if (imgRes.ok) {
+          const newImg = await imgRes.json();
+          createdGroup.GroupImages = [newImg];
+        }
+      }
+
+      dispatch(createGroup(createdGroup));
+      return createdGroup;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  };
+
 
 
 export const thunkUpdateGroup = (group, groupId) => async (dispatch) => {

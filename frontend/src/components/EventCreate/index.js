@@ -103,13 +103,13 @@ export const EventCreate = ({ formType }) => {
           console.error("Error creating group:", err);
         });
 
-        dispatch(groupActions.thunkGetIndividualGroup(group, imageURL))
-          .then((res) => {
-            history.push(`/events/${res.id}`);
-          })
-          .catch((err) => {
-            console.error("Error creating group:", err);
-          });
+        // dispatch(groupActions.thunkGetIndividualGroup(group, imageURL))
+        //   .then((res) => {
+        //     history.push(`/events/${res.id}`);
+        //   })
+        //   .catch((err) => {
+        //     console.error("Error creating group:", err);
+        //   });
 
       }
     }
@@ -117,9 +117,9 @@ export const EventCreate = ({ formType }) => {
 
 
   return (
+    <form className="event-create-form" onSubmit={handleSubmit}>
     <div className="event-create-container">
       <h1>Create an Event for {group}</h1>
-      <form className="event-create-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">What is the name of your event?</label>
           <input
@@ -242,8 +242,8 @@ export const EventCreate = ({ formType }) => {
         <button type="submit" className="create-event-btn">
           Create Event
         </button>
-      </form>
     </div>
+      </form>
   );
 };
 

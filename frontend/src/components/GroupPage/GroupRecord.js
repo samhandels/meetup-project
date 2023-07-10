@@ -6,9 +6,9 @@ export const GroupRecord = ({ group }) => {
 
   const eventStatus = () => {
     if (group.private === true) {
-      return "events: Private";
+      return " events · Private";
     } else {
-      return "events: Public";
+      return " events · Public";
     }
   };
 
@@ -35,10 +35,12 @@ export const GroupRecord = ({ group }) => {
         {group.city}, {group.state}
       </p>
       <p className="group-about">{group.about}</p>
+      <p className="group-event">
+        {/* {group.event.length} · {eventStatus()} */}
+        {group.city.length}
+        {eventStatus()}
+      </p>
     </div>
-      {/* <p className="group-event">
-        {group.event.length} · {eventStatus()}
-      </p> */}
 </div>
   );
 };

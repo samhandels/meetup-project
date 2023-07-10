@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -13,6 +13,8 @@ export const EventIndividual = () => {
   const eventInfo = useSelector((state) => state.events);
   const event = eventInfo[eventId];
   const history = useHistory();
+
+
 
   useEffect(() => {
     dispatch(thunkGetIndividualEvent(eventId));
@@ -56,7 +58,7 @@ export const EventIndividual = () => {
         </div>
         <div className="event-detail-header-container">
           <h2>{event.name}</h2>
-          <p>Hosted by {event.Group.firstName} {event.Group.lastName}</p>
+          <p>Hosted by Demo User {event.Group.firstName} {event.Group.lastName}</p>
         </div>
       </div>
       <div className="event-detail-body-container">
@@ -104,7 +106,7 @@ export const EventIndividual = () => {
             </div>
             <div className="event-delete">
                       <OpenModalButton
-                        modalComponent={<DeleteEvent />}
+                        modalComponent={<DeleteEvent eventId={eventId}/>}
                         buttonText={"Delete"}
                       />
                   </div>

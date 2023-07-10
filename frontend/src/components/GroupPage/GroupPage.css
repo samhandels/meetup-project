@@ -6,8 +6,8 @@
 
   .group-header {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 6rem;
     margin-bottom: 16px;
     margin-top: 30px;
     cursor: pointer;
@@ -22,7 +22,8 @@
   .groups-in-connect {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 6rem;
     color: gray;
   }
 

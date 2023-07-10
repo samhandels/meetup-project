@@ -20,6 +20,16 @@
     padding-top: 1.5rem;
     border-top: 2px solid lightgray;
   }
+
+  .groupcreate-maindiv {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
+  .text-above-label {
+    margin-bottom: 1rem;
+  }
+
   .form-title {
     font-size: 28px;
     font-weight: bold;
