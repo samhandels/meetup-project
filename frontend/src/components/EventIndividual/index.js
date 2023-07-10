@@ -35,7 +35,7 @@ export const EventIndividual = () => {
     if (event.previewImage === "no preview image" || event.previewImage === undefined) {
         event.previewImage = "https://m.media-amazon.com/images/I/71pIS8f417L.jpg";
       } else {
-      return `${event.EventImages[0].url}`;
+    return event.EventImages[0].url;
     }
   };
 
