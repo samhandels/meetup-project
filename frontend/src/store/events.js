@@ -91,9 +91,9 @@ export const thunkDeleteEvent = (eventId) => async (dispatch) => {
     const res = await csrfFetch(`/api/events/${eventId}`, {
       method: "DELETE",
     });
-
     if (res.ok) {
       const data = res.json();
+    //   window.location.href = `/api/groups/${groupId}`
       dispatch(deleteEvent(eventId));
       return data;
     }
@@ -130,7 +130,7 @@ const eventsReducer = (state = initialState, action) => {
         }
         case DELETE_EVENT: {
             const newState = { ...state };
-            delete newState[action.event.id];
+            delete newState[action.eventId];
             return newState;
         }
         default:

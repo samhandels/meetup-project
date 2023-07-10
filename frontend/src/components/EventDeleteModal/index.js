@@ -4,20 +4,19 @@ import { useParams, useHistory } from "react-router-dom";
 import { thunkDeleteEvent } from '../../store/events.js'
 
 
-function DeleteEvent() {
+function DeleteEvent({eventId, groupId}) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { eventId } = useParams();
-  const event = useSelector(state => state.events[eventId]);
-  const group = useSelector(state => state.groups.individualGroup);
+//   const { eventId } = useParams();
+//   const event = useSelector(state => state.events[eventId]);
+  const group = useSelector(state => state.groups);
   const { closeModal } = useModal();
-  console.log("event", event)
 
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(thunkDeleteEvent(eventId));
     closeModal();
-    history.push(`/groups/${group.id}`);
+    history.push(`/groups/${groupId}`)
   };
 
   return (

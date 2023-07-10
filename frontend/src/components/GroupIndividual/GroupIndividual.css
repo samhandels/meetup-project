@@ -119,3 +119,82 @@
 .organizer-name {
     color: #999999;
 }
+
+.group-individual-events-container {
+    margin-top: 1.25rem;
+  }
+
+  .group-individual-events-title {
+    margin: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .event-cards {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-areas:
+      'img info'
+      'descrip descrip';
+    column-gap: 0.5rem;
+    grid-template-columns: 1fr 2fr;
+    background-color: white;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .event-cards-image {
+    grid-area: img;
+  }
+
+  .event-cards-image:hover {
+    cursor: pointer;
+  }
+
+  .event-cards-info {
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.25rem;
+  }
+
+  .event-cards-info > p {
+    word-wrap: break-word;
+    max-width: 13.6rem;
+  }
+
+  .event-cards-info > p:hover {
+    cursor: pointer;
+  }
+
+  .event-cards-info-time {
+    color: #00798A;
+    font-size: 14px;
+  }
+
+  .event-cards-info-name {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .event-cards-info-location {
+    color: #999999;
+    font-size: 14px;
+  }
+
+  .event-cards-description {
+    grid-area: descrip;
+    margin-left: 1rem;
+    display: flex;
+    word-wrap: normal;
+    width: auto;
+  }
+
+  .event-cards-description > p {
+    font-size: 12px;
+    cursor: pointer;
+    width: 31.5rem;
+    word-break: break-word;
+    margin-bottom: 1rem;
+    margin-top: 0.4rem;
+    max-width: 25rem;
+  }

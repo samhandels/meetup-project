@@ -14,8 +14,6 @@ export const EventIndividual = () => {
   const event = eventInfo[eventId];
   const history = useHistory();
 
-
-
   useEffect(() => {
     dispatch(thunkGetIndividualEvent(eventId));
   }, [dispatch]);
@@ -106,9 +104,9 @@ export const EventIndividual = () => {
             </div>
             <div className="event-delete">
                       <OpenModalButton
-                        modalComponent={<DeleteEvent eventId={eventId}/>}
+                        modalComponent={<DeleteEvent eventId={eventId} groupId={event.Group.id}/>}
                         buttonText={"Delete"}
-                      />
+                        />
                   </div>
             <div className="event-detail-body-info-event-button">{/* <EventDetailButton event={event} /> */}</div>
           </div>
