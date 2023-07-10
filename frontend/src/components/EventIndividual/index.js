@@ -61,7 +61,9 @@ export const EventIndividual = () => {
       </div>
       <div className="event-detail-body-container">
         <div className="event-detail-body-info">
-          <img className="event-detail-body-image" width="500" height="300" src={imageCheck()} />
+          <img className="event-detail-body-image" width="500" height="300"
+        //   src={imageCheck()}
+          src={event.EventImages[0].url}/>
           <div className="event-detail-body-info-group">
             <img
               onClick={sendToGroup}
