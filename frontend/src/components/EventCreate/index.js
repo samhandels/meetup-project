@@ -119,7 +119,7 @@ export const EventCreate = ({ formType }) => {
   return (
     <form className="event-create-form" onSubmit={handleSubmit}>
     <div className="event-create-container">
-      <h1>Create an Event for {group}</h1>
+      <h1>Create an Event for your Group{group}</h1>
         <div className="form-group">
           <label htmlFor="name">What is the name of your event?</label>
           <input
