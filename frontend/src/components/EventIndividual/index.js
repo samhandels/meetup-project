@@ -237,7 +237,7 @@ export const EventIndividual = () => {
               <p>{event.type}</p>
             </div>
             <div className="event-delete">
-              {isOrganizer && session.user && ( // Render the button only if the user is signed in and is the organizer
+              {isOrganizer && session.user && (
                 <OpenModalButton
                   className="event-delete-button"
                   modalComponent={<DeleteEvent eventId={eventId} groupId={event.Group.id} />}
