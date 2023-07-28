@@ -72,7 +72,7 @@ function LandingPage({setAuthForm}) {
           <OpenModalButton
             className="join-button"
             modalComponent={<SignupFormModal />}
-            buttonText="Join MeetHere"
+            buttonText="Join Connect"
           />
         )}
       </section>

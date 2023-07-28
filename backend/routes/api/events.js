@@ -199,6 +199,7 @@ router.get("/", async (req, res) => {
 //   res.json(eventPojo);
 // });
 
+  // get details of an event by ID
 router.get("/:eventId", async (req, res, next) => {
   const { eventId } = req.params;
 
