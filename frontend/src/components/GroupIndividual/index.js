@@ -100,7 +100,7 @@ export const GroupIndividual = () => {
               </span>
             </p>
             <div className="buttons-container-groups">
-              {user ? (
+              {user && user.id === groupInfo["Organizer"].id ? (
                 <>
                   <button className="create-event-button" onClick={createEvent}>
                     Create Event
@@ -108,7 +108,7 @@ export const GroupIndividual = () => {
                   <button className="update-group-button" onClick={updateGroup}>
                     Update
                   </button>
-                  <div className="delte-group-button-div">
+                  <div className="delete-group-button-div">
                     <OpenModalButton classname="delete-group-button" modalComponent={<DeleteGroup />} buttonText={'Delete'} />
                   </div>
                 </>
