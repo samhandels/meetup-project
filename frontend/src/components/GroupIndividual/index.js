@@ -47,9 +47,6 @@ export const GroupIndividual = () => {
     history.push(`/groups/${groupId}/edit`);
   };
 
-  const deleteGroup = () => {
-    // Implement the delete group functionality
-  };
 
   const eventsCheck = () => {
     if (eventInfo === undefined) {

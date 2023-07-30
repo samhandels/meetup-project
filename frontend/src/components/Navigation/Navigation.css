@@ -73,10 +73,16 @@
   .start-new-group {
     margin-right: 10px;
     margin-top: 7px;
+    color: #0b6986;
 }
 
-.start-new-group a {
+  .start-new-group a {
     text-decoration: none;
+  }
+
+  .start-new-group a:visited {
+    text-decoration: none;
+    color: #0b6986;
   }
 
   .arrow-icon {
@@ -109,9 +115,16 @@
     padding-left: 0px;
     border: solid black 1px;
     list-style-type: none;
-    padding-right: 2rem;
    }
 
    .bordertopbutton {
     border-top: solid black 1px;
+   }
+
+   .navigation-links li ul{
+    transform:translatex(-38px) translatey(0px);
+    width:111px;
+    overflow:visible;
+    padding-left:4px;
+    margin-left:-10px;
    }
