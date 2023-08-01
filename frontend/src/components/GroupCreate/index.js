@@ -95,7 +95,8 @@ export const GroupCreate = ({ formType }) => {
           <label className="text-above-label" htmlFor="name">Choose a name that will give people a clear idea of what the group is about. Feel free to get creative! You can edit this later if you change your mind.</label>
           <input
             type="text"
-            id="name"
+            // id="name"
+            className="nameField"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="What is your group name?"

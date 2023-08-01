@@ -163,7 +163,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="privacy">Privacy</label>
+          <label htmlFor="privacy">Is this event private or public?</label>
           <select
             id="privacy"
             value={privacy}
@@ -178,7 +178,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price">What is the price for your event?</label>
           <input
             type="integer"
             id="price"
@@ -191,7 +191,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="startDate" className="start-date">Start Date</label>
+          <label htmlFor="startDate" className="start-date">When does your event start?</label>
           <input
             type="datetime-local"
             id="startDate"
@@ -203,7 +203,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="endDate">End Date</label>
+          <label htmlFor="endDate">When does your event end?</label>
           <input
             type="datetime-local"
             id="endDate"
@@ -215,7 +215,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="imageURL" className="img-url">Image URL</label>
+          <label htmlFor="imageURL" className="img-url">Please add an image url for your event below:</label>
           <input className="img-input"
             type="text"
             id="imageURL"
@@ -228,7 +228,7 @@ export const EventCreate = ({ formType }) => {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="description" className="description">Description</label>
+          <label htmlFor="description" className="description">Please describe your event:</label>
           <textarea
             id="description"
             value={description}

@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 20px;
     border-radius: 5px;
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
   }
 
   .event-create-container h1 {
@@ -29,13 +30,29 @@
   .event-create-form select,
   .event-create-form textarea,
   #name {
-    width: 100%;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
     border: 2px solid black;
-    background-color: #f4f4f4;
+    background-color: #e8f0fe;
     margin-bottom: 3px;
+  }
+
+   #name {
+    width: 30rem;
+  }
+
+  .event-create-form textarea{
+    width: 30rem;
+    height: 16rem;
+  }
+
+  .event-create-form select {
+    width: 12rem;
+  }
+
+  #imageURL {
+    width: 30rem;
   }
 
 
@@ -65,6 +82,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 1rem;
+    box-shadow: 3px 3px 3px black;
   }
 
   .event-create-form .create-event-btn:hover {
@@ -72,6 +90,6 @@
   }
 
   .eventType, .start-date, .img-url, .description {
-    border-top: 2px solid lightgray;
+    border-top: 3px solid gray;
     padding-top: 1rem;
   }
