@@ -101,7 +101,7 @@ export const thunkDeleteEvent = (eventId) => async (dispatch) => {
   };
 
   export const thunkGetEventsByGroup = (groupId) => async(dispatch) => {
-    const res = await fetch(`/api/groups/${groupId}/events`)
+    const res = await csrfFetch(`/api/groups/${groupId}/events`)
     if (res.ok) {
         const data = await res.json()
         dispatch(getAllEvents(data))
@@ -116,7 +116,7 @@ const initialState = {};
 const eventsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_EVENTS: {
-            const newState = {...state};
+            const newState = {};
             action.events.Events.forEach(event => {
                 newState[event.id] = event;
             });

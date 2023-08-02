@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 
-export const GroupIndividualEvents = ({ events }) => {
+export const GroupIndividualEvents = ({ events, groupId }) => {
   const upcomingEvent = [];
   const pastEvent = [];
   const time = new Date();

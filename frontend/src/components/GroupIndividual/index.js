@@ -52,7 +52,7 @@ export const GroupIndividual = () => {
     if (eventInfo === undefined) {
       return <h3 style={{ marginTop: ".2rem" }}>No Upcoming Events</h3>;
     } else {
-      return <GroupIndividualEvents events={eventInfo} />;
+      return <GroupIndividualEvents events={eventInfo} groupId={groupId}/>;
     }
   };
 
