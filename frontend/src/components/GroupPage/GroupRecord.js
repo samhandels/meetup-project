@@ -36,9 +36,8 @@ export const GroupRecord = ({ group }) => {
       </p>
       <p className="group-about">{group.about}</p>
       <p className="group-event">
-        {/* {group.event.length} · {eventStatus()} */}
-        {group.city.length}
-        
+        {group.numEvents}
+
         {eventStatus()}
       </p>
     </div>

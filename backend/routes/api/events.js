@@ -3,6 +3,7 @@ const router = express.Router();
 const { Event, Group, Venue, EventImage, User, Attendance, GroupImage, Membership } = require('../../db/models');
 const { requireAuth } = require("../../utils/auth.js");
 const { handleValidationErrors } = require("../../utils/validation.js");
+const groupimage = require('../../db/models/groupimage');
 
 //get all events
 router.get("/", async (req, res) => {
@@ -200,6 +201,13 @@ router.get("/", async (req, res) => {
 // });
 
   // get details of an event by ID
+
+
+  //   {
+  //   model: GroupImage,
+  //   attributes:["url"],
+  //   as: "GroupImages"
+  // }
 router.get("/:eventId", async (req, res, next) => {
   const { eventId } = req.params;
 
@@ -208,10 +216,8 @@ const event = await Event.findByPk(eventId, {
     {
       model: Group,
       attributes: ["id", "name", "private", "city", "state"],
-      include: [{
-        model: GroupImage,
-        attributes:["url"]
-      },{
+      include: [
+      {
         model: User,
         attributes: ["firstName", "lastName", "id"],
         as: "Organizer",
@@ -232,6 +238,15 @@ const event = await Event.findByPk(eventId, {
     },
   ],
 });
+
+const group1 = await event.getGroup(
+  {
+    include: {model: GroupImage,
+  attributes: ["url"]}
+    }
+)
+// console.log("Group1 ---------------", group1.toJSON())
+
 
 if (!event) {
   res.status(404).json({
@@ -282,6 +297,9 @@ const eventPojo = {
     : null,
   EventImages: event.EventImages,
 };
+const groupImage = group1.toJSON()
+eventPojo.groupImgURL = groupImage.GroupImages[0].url
+
 
 res.json(eventPojo);
 });

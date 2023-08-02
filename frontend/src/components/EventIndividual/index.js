@@ -201,8 +201,8 @@ export const EventIndividual = () => {
               className="event-detail-body-info-group-image"
               width="110"
               height="75"
-            //   src={`${event.previewImage}`} //wrong image populating
-              src={`https://m.media-amazon.com/images/I/71pIS8f417L.jpg`}
+              src={`${event.groupImgURL}`}
+              // src={`https://m.media-amazon.com/images/I/71pIS8f417L.jpg`}
             />
             <div className="event-detail-body-info-group-body">
               <h4 onClick={sendToGroup}>{event.Group.name}</h4>

@@ -13,7 +13,9 @@ router.get('/', async (req, res) => {
 
     // Calculates aggregate data
     for (const group of groups) {
-        const numOfEvents = await group.countEvents(); //sherry helped add this
+        const numOfEvents = await group.countEvents();
+        group.dataValues.numEvents = numOfEvents
+        console.log("%c this is num of events", "color: green, font-size: 20px", numOfEvents)
         let members = await group.countUsers();
         group.dataValues.numMembers = members;
         let groupImage = await group.getGroupImages({
