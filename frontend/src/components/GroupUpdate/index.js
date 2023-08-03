@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { thunkGetIndividualGroup, thunkUpdateGroup } from '../../store/groups'
+import './GroupUpdate.css';
 
 function EditGroup() {
   const dispatch = useDispatch()
@@ -71,9 +72,8 @@ function EditGroup() {
           We'll walk you through a few steps to build your group's information
         </h2>
       </div>
-      <hr />
       <div className="form-step">
-        <h3>First, set your group's location</h3>
+        <h3 className="location-h3">First, set your group's location</h3>
         <span>
           Connect groups meet locally, in person and online. We'll connect you
           with people in your area, and more can join you online.
@@ -91,7 +91,7 @@ function EditGroup() {
               <span className="errors">{validationErrors.cityState}</span>
             )}
           </div>
-          <div className="form-group">
+          <div className="form-group-name">
             <h3>What is the name of your group?</h3>
             <span>
               Choose a name that will give people a clear idea of what the group
@@ -111,7 +111,7 @@ function EditGroup() {
               <span className="errors">{validationErrors.name}</span>
             )}
           </div>
-          <div className="form-group">
+          <div className="form-group-about">
             <h3>Now describe what your group will be about</h3>
             <span>
               People will see this when we promote your group.
@@ -129,7 +129,7 @@ function EditGroup() {
               <span className="errors">{validationErrors.about}</span>
             )}
           </div>
-          <div className="form-group">
+          <div className="form-group-footer">
             <h3>Final steps...</h3>
             <span>Is this an in person or online group?</span>
             <select
@@ -158,7 +158,6 @@ function EditGroup() {
               <span className="errors">{validationErrors.privacy}</span>
             )}
           </div>
-          <hr />
           <button type="submit" className="form-submit-btn">
             Update group
           </button>

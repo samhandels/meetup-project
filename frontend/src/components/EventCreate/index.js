@@ -9,8 +9,7 @@ export const EventCreate = ({ formType }) => {
   const { groupId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const group = useSelector((state) => state.groups.singleGroup);
-
+  const group = useSelector((state) => state.groups.individualGroup);
   const [name, setName] = useState("");
   const [eventType, setEventType] = useState("");
   const [capacity, setCapacity] = useState("");
@@ -119,7 +118,7 @@ export const EventCreate = ({ formType }) => {
   return (
     <form className="event-create-form" onSubmit={handleSubmit}>
     <div className="event-create-container">
-      <h1>Create an Event for your Group{group}</h1>
+      <h1>Create an Event for {group.name}</h1>
         <div className="form-group">
           <label htmlFor="name">What is the name of your event?</label>
           <input
@@ -129,9 +128,11 @@ export const EventCreate = ({ formType }) => {
             onChange={(e) => setName(e.target.value)}
             placeholder="Event Name"
           />
+          <div>
           {validationErrors.name && (
             <span className="error">{validationErrors.name}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="eventType" className="eventType">Is this an in person or online event?</label>
@@ -144,9 +145,11 @@ export const EventCreate = ({ formType }) => {
             <option value="In person">In person</option>
             <option value="Online">Online</option>
           </select>
+          <div>
           {validationErrors.eventType && (
             <span className="error">{validationErrors.eventType}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="capacity">Capacity</label>
@@ -158,9 +161,11 @@ export const EventCreate = ({ formType }) => {
             placeholder="# People allowed"
           >
           </input>
+          <div>
           {validationErrors.capacity && (
             <span className="error">{validationErrors.capacity}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="privacy">Is this event private or public?</label>
@@ -173,9 +178,11 @@ export const EventCreate = ({ formType }) => {
             <option value="private">Private</option>
             <option value="public">Public</option>
           </select>
+          <div>
           {validationErrors.privacy && (
             <span className="error">{validationErrors.privacy}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="price">What is the price for your event?</label>
@@ -186,9 +193,11 @@ export const EventCreate = ({ formType }) => {
             onChange={(e) => setPrice(e.target.value)}
             placeholder="0"
           />
+          <div>
           {validationErrors.price && (
             <span className="error">{validationErrors.price}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="startDate" className="start-date">When does your event start?</label>
@@ -198,9 +207,11 @@ export const EventCreate = ({ formType }) => {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
+          <div>
           {validationErrors.startDate && (
             <span className="error">{validationErrors.startDate}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="endDate">When does your event end?</label>
@@ -210,9 +221,11 @@ export const EventCreate = ({ formType }) => {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
+          <div>
           {validationErrors.endDate && (
             <span className="error">{validationErrors.endDate}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="imageURL" className="img-url">Please add an image url for your event below:</label>
@@ -223,9 +236,11 @@ export const EventCreate = ({ formType }) => {
             onChange={(e) => setImageURL(e.target.value)}
             placeholder="Image URL"
           />
+          <div>
           {validationErrors.imageURL && (
             <span className="error">{validationErrors.imageURL}</span>
           )}
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="description" className="description">Please describe your event:</label>
@@ -235,9 +250,11 @@ export const EventCreate = ({ formType }) => {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Please include at least 30 characters"
           ></textarea>
+          <div>
           {validationErrors.description && (
             <span className="error">{validationErrors.description}</span>
           )}
+          </div>
         </div>
         <button type="submit" className="create-event-btn">
           Create Event
