@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
     for (const group of groups) {
         const numOfEvents = await group.countEvents();
         group.dataValues.numEvents = numOfEvents
-        console.log("%c this is num of events", "color: green, font-size: 20px", numOfEvents)
         let members = await group.countUsers();
         group.dataValues.numMembers = members;
         let groupImage = await group.getGroupImages({
@@ -161,8 +160,8 @@ router.post("/", requireAuth, handleValidationErrors, async (req, res) => {
       validationErrors.name = "Name must be 60 characters or less";
     }
 
-    if (!groups.about || groups.about.length < 50) {
-      validationErrors.about = "About must be 50 characters or more";
+    if (!groups.about || groups.about.length < 30) {
+      validationErrors.about = "About must be 30 characters or more";
     }
 
     if (!groups.type || !["Online", "In person"].includes(groups.type)) {

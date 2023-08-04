@@ -187,11 +187,11 @@ export const EventCreate = ({ formType }) => {
         <div className="form-group">
           <label htmlFor="price">What is the price for your event?</label>
           <input
-            type="integer"
+            type="number"
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            placeholder="0"
+            placeholder="$0"
           />
           <div>
           {validationErrors.price && (

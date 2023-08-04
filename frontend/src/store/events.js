@@ -80,7 +80,8 @@ export const thunkCreateEvent = (event, groupId, img) => async(dispatch) => {
         })
         const newImg = await imgRes.json()
         data.EventImages = [newImg]
-        dispatch(createEvent([data]))
+        await dispatch(createEvent([data]))
+        await dispatch(thunkGetAllEvents())
         return data
     } else {
         const errorData = await res.json()

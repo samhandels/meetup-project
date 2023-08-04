@@ -10,6 +10,7 @@ export const GroupIndividualEvents = ({ events, groupId }) => {
     results.push(value)
   }
 
+
   for (let event of results) {
     if (event.previewImage === undefined) {
       event.previewImage = "unavailable";
@@ -32,6 +33,7 @@ export const GroupIndividualEvents = ({ events, groupId }) => {
   // const navigateToEvent = (eventId) => {
   //   history.push(`/events/${eventId}`);
   // };
+
 
   return (
     <>

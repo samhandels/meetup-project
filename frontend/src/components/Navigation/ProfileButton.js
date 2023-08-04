@@ -55,10 +55,10 @@ function ProfileButton({ user }) {
             {/* <li>{user.firstName} {user.lastName}</li> */}
             <li>{user.email}</li>
             <button className="bordertopbutton" onClick={() => history.push("/events")}>
-            Your events
+            See all events
             </button>
             <button onClick={() => history.push("/groups")}>
-            Your groups
+            See all groups
             </button>
             <li>
               <button className="bordertopbutton" onClick={logout}>Log Out</button>
