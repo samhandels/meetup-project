@@ -70,7 +70,7 @@
 }
 
 .home-image {
-  margin-top: 5rem;
+  margin-top: 3.5rem;
     height: 200px;
     margin-left: 10px;
   }
@@ -78,6 +78,7 @@
   .middle-section {
     padding: 4rem 5rem;
     margin-top: 1rem;
+    padding-top: 5rem;
   }
 
   .middle-section h2 {
@@ -87,13 +88,13 @@
 
   .middle-section p {
     font-size: 16px;
-
   }
 
   .features-section {
     display: flex;
     justify-content: center;
     padding: 50px 0;
+    gap: 2em;
   }
   .features-section p{
     max-width: 200px;

@@ -21,10 +21,6 @@
     margin: 0;
   }
 
-  .navigation-links li {
-    margin-left: 10px;
-  }
-
   .navigation-links li:first-child {
     margin-left: 0;
   }
@@ -114,18 +110,24 @@
     background-color: white;
     position: absolute;
     padding-left: 0px;
-    border: solid black 1px;
+    border: solid black 2px;
     list-style-type: none;
+    font-size: 15px;
    }
 
-   .bordertopbutton {
+   .li-button {
     border-top: solid black 1px;
    }
 
+   .li-email {
+    border-bottom: solid black 1px;
+    margin-left: 0px;
+   }
+
    .navigation-links li ul{
-    transform:translatex(-38px) translatey(0px);
-    width:111px;
-    overflow:visible;
-    padding-left:4px;
-    margin-left:-10px;
+    transform:translatex(-45px) translatey(0px);
+    width: fit-content;
+    overflow: auto;
+    padding-left: 4px;
+    margin-left: -90px;
    }
