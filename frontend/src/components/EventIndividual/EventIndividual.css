@@ -59,12 +59,21 @@
     max-height: 5.75rem;
     border-radius: 1rem;
     display: flex;
+
+    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .event-detail-body-info-event {
     grid-area: eventinfo;
     background-color: white;
     border-radius: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    min-width: 270px;
+
 }
 
 .event-detail-body-info-group-image {
@@ -72,8 +81,17 @@
     cursor: pointer;
 }
 
+.privacy {
+    color: #999999;
+    font-size: 14px;
+}
+
 .event-detail-body-info-group-body {
     max-width: 9.40rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .event-detail-body-info-group-body > h4 {

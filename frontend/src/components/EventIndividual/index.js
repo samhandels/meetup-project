@@ -48,6 +48,14 @@ export const EventIndividual = () => {
     }
   };
 
+  const eventPrivacy = () => {
+    if (event.Group.privacy === "true") {
+      return "Private";
+    } else {
+      return "Public";
+    }
+  };
+
   const isOrganizer = session?.user?.id === event?.Group?.Organizer?.id;
 
   return (
@@ -77,6 +85,8 @@ export const EventIndividual = () => {
             />
             <div className="event-detail-body-info-group-body">
               <h4 onClick={sendToGroup}>{event.Group.name}</h4>
+              <br></br>
+              <div onClick={sendToGroup} className="privacy">{eventPrivacy()}</div>
             </div>
           </div>
           <div className="event-detail-body-info-event">
