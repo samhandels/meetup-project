@@ -151,10 +151,14 @@
     background-color: white;
     border-radius: 1rem;
     margin-bottom: 1rem;
+    width: fit-content;
   }
 
   .event-cards-image {
     grid-area: img;
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
   }
 
   .event-cards-image:hover {
