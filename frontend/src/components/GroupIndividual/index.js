@@ -47,12 +47,11 @@ export const GroupIndividual = () => {
     history.push(`/groups/${groupId}/edit`);
   };
 
-
   const eventsCheck = () => {
     if (eventInfo === undefined) {
       return <h3 style={{ marginTop: ".2rem" }}>No Upcoming Events</h3>;
     } else {
-      return <GroupIndividualEvents events={eventInfo} groupId={groupId}/>;
+      return <GroupIndividualEvents events={eventInfo} groupId={groupId} />;
     }
   };
 
@@ -109,11 +108,11 @@ export const GroupIndividual = () => {
                     <OpenModalButton classname="delete-group-button" modalComponent={<DeleteGroup />} buttonText={'Delete'} />
                   </div>
                 </>
-              ) : (
+              ) : user ? (
                 <button className="join-group-button" onClick={comingSoon}>
                   Join this group
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
         </div>

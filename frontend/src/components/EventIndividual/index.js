@@ -63,7 +63,7 @@ export const EventIndividual = () => {
       <div className="event-detail-container">
         <div className="event-detail-breadcrumb">
           <p>{"<"}</p>
-          <Link to="/events">Events</Link>
+          <Link to="/events" className="events-a">Events</Link>
         </div>
         <div className="event-detail-header-container">
           <h2>{event.name}</h2>
