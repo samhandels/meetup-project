@@ -61,10 +61,10 @@ export const GroupIndividual = () => {
   };
 
   const eventsLengthCheck = () => {
-    if (groupInfo.Events === undefined) {
+    if (eventInfo === undefined) {
       return "0";
     } else {
-      return groupInfo.Events.length;
+      return Object.keys(eventInfo).length;
     }
   };
 
@@ -86,7 +86,7 @@ export const GroupIndividual = () => {
               {groupInfo.city}, {groupInfo.state}
             </p>
             <div className="group-membership">
-              <p>{groupInfo.numMembers} Members</p>
+              <p>{eventsLengthCheck()} events</p>
               <p>&bull;</p>
               <p>{groupInfo.private ? "Private" : "Public"}</p>
             </div>
