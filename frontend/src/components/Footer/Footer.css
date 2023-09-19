@@ -1,0 +1,44 @@
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-section {
+    margin-bottom: 20px;
+}
+
+.footer-section h5 {
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.github-linkedin a {
+    margin-right: 10px;
+    color: white;
+    font-size: 24px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #555;
+    padding-top: 10px;
+    text-align: center;
+}

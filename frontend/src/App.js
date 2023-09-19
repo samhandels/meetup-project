@@ -13,6 +13,7 @@ import EventCreate from "./components/EventCreate";
 import { GroupForm } from "./components/GroupCreate/GroupForm";
 import EventForm  from "./components/EventCreate/EventForm";
 import EditGroup from "./components/GroupUpdate";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
           <EventPage />
         </Route>
       </Switch>}
+      <Footer />
     </>
   );
 }
