@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
@@ -10,6 +11,16 @@ const Footer = () => {
 
     return (
         <footer className="footer">
+            <div className="create-your-own-group">
+                <div className="create-group-text">
+                    Create your own Connect group.
+                    <NavLink
+                        to="/groups/new"
+                        className="get-started-button">
+                        Get Started
+                    </NavLink>
+                </div>
+            </div>
             <div className="footer-section">
                 <h4>Discover</h4>
                 <ul>
@@ -41,7 +52,7 @@ const Footer = () => {
             )}
 
             <div className="footer-section">
-                <h5>Follow Us</h5>
+                <h4>Created by: Sam Handelsman</h4>
                 <div className="github-linkedin">
                     <a href="https://www.linkedin.com/in/sam-handelsman/" target="_blank" rel="noopener noreferrer">
                         <i className="fa-brands fa-linkedin"></i>

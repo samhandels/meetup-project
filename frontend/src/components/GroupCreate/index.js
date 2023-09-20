@@ -13,6 +13,7 @@ export const GroupCreate = ({ formType }) => {
   const [type, setType] = useState(undefined);
   const [privacy, setPrivacy] = useState(undefined);
   const [url, setUrl] = useState("");
+  const [image, setImage] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleSubmit = async (e) => {
@@ -34,15 +35,15 @@ export const GroupCreate = ({ formType }) => {
     if (!privacy) {
       errors.privacy = "Visibility Type is required";
     }
-    if (!url) {
-      errors.url = "URL is required";
-    } else if (
-        !url.endsWith(".jpeg") &&
-        !url.endsWith(".jpg") &&
-        !url.endsWith(".png")
-    ) {
-        errors.url = "Image URL must end with .png, .jpg, or .jpeg";
-    }
+    // if (!url) {
+    //   errors.url = "URL is required";
+    // } else if (
+    //     !url.endsWith(".jpeg") &&
+    //     !url.endsWith(".jpg") &&
+    //     !url.endsWith(".png")
+    // ) {
+    //     errors.url = "Image URL must end with .png, .jpg, or .jpeg";
+    // }
 
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
@@ -57,10 +58,10 @@ export const GroupCreate = ({ formType }) => {
       about,
       type,
       privacy,
-      url,
+      // image,
     };
 
-    dispatch(groupActions.thunkCreateGroup(groupData, url))
+    dispatch(groupActions.thunkCreateGroup(groupData, image))
       .then((res) => {
         history.push(`/groups/${res.id}`);
       })
@@ -70,9 +71,14 @@ export const GroupCreate = ({ formType }) => {
   }
 };
 
+const updateFile = (e) => {
+  const file = e.target.files[0];
+  if (file) setImage(file);
+};
+
   return (
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <div className="groupcreate-maindiv">
       <h1>BECOME AN ORGANIZER</h1>
       <h2 className="first-h2">We'll walk you through a few steps to build your local community</h2>
@@ -155,13 +161,14 @@ export const GroupCreate = ({ formType }) => {
           )}
         </div>
         <div>
-          <label htmlFor="url">Please add an image url for your group below:</label>
+          <label htmlFor="url">Please add an image for your group below:</label>
           <input
-            type="text"
+            type="file"
             id="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Image Url"
+            accept="image/*"
+            // value={url}
+            onChange={updateFile}
+            // placeholder="Image Url"
           />
           {validationErrors.url && (
             <p className="error">{validationErrors.url}</p>

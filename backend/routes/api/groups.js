@@ -5,6 +5,7 @@ const { Group, Membership, User, GroupImage, Venue, Attendance, EventImage, Even
 const { handleValidationErrors, getVenue } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 const { Op } = require('sequelize');
+const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3')
 
 
 //get all groups
@@ -202,11 +203,14 @@ router.post("/", requireAuth, handleValidationErrors, async (req, res) => {
 
 
 //add an image to a group based on id
+const asyncHandler = require('express-async-handler')
 
-router.post("/:groupId/images", requireAuth, async (req, res, next) => {
+router.post("/:groupId/images", singleMulterUpload("image"), requireAuth, asyncHandler(async (req, res, next) => {
     const { groupId } = req.params;
     const { id: userId } = req.user;
-    const { url, preview } = req.body;
+    // const { preview } = req.body;
+    // console.log("req.file in groupid images route *******************************", req.file)
+    const imageUrl = await singlePublicFileUpload(req.file);
 
     try {
       const group = await Group.findByPk(groupId);
@@ -223,7 +227,8 @@ router.post("/:groupId/images", requireAuth, async (req, res, next) => {
         throw error;
       }
 
-      const newGroupImage = await GroupImage.create({ groupId, url, preview });
+      const preview = 1
+      const newGroupImage = await GroupImage.create({ groupId, url: imageUrl, preview });
       await group.addGroupImage(newGroupImage);
 
       const createdImage = await GroupImage.findByPk(newGroupImage.id, {
@@ -237,7 +242,7 @@ router.post("/:groupId/images", requireAuth, async (req, res, next) => {
         .status(error.status || 500)
         .json({ message: error.message || "Internal Server Error" });
     }
-  });
+  }));
 
 
   //edit a group based on ID

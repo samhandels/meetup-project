@@ -87,23 +87,35 @@ export const thunkGetIndividualGroup = (groupId) => async (dispatch) => {
 //   }
 // };
 
-export const thunkCreateGroup = (group, imgUrl) => async (dispatch) => {
+export const thunkCreateGroup = (group, imgUrl, preview) => async (dispatch) => {
+    const formData = new FormData();
+  //   for (const key in group) {
+  //     formData.append(key, group[key]);
+  //     console.log("formData in thunkCreateGroup------------------", formData)
+  // }
     const res = await csrfFetch('/api/groups', {
       method: 'POST',
       body: JSON.stringify(group),
     });
 
+    // console.log("imgURL in thunkCreateGroup *************************", imgUrl)
+
+    if (imgUrl) {
+      formData.append("image", imgUrl);
+      formData.append("preview", preview)
+  }
+
     if (res.ok) {
       const createdGroup = await res.json();
+      console.log("createdGroup in Thunk Create Group ------------", createdGroup)
 
-      if (imgUrl) {
+      if (createdGroup) {
         const imgRes = await csrfFetch(`/api/groups/${createdGroup.id}/images`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            url: imgUrl,
-            preview: true,
-          }),
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          body: formData,
         });
 
         if (imgRes.ok) {
